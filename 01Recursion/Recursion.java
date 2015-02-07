@@ -1,4 +1,4 @@
-public class Recursion{
+public class Recursion implements hw1{
     public String name(){
 	return "Gershfeld,Katherine";
     }
@@ -23,10 +23,28 @@ public class Recursion{
 	    return (fibit(a+b,a,n-1));
 	}
     }
-    //public double sqrt(double n);
+    public double sqrt(double n){
+	if (n<0){
+	    throw new IllegalArgumentException("Domain Error");
+	} else {
+	    return (double)Math.round(squirt(n,n) * 10000000)/10000000;
+	}
+    }
+    public double squirt(double n, double g){
+	if (Math.abs(g*g-n) < 0.00001){
+	    return g;
+	} else {
+	    return squirt(n,(g+(n/g))/2);
+	}
+    }
     public static void main(String[]args){
 	Recursion cur = new Recursion();
 	System.out.println(cur.fact(4));
 	System.out.println(cur.fib(9));
+	System.out.println(cur.sqrt(576));
+	System.out.println(cur.sqrt(2));
+	System.out.println(cur.sqrt(1));
+	System.out.println(cur.sqrt(0));
+	System.out.println(cur.sqrt(-1));
     }
 }
