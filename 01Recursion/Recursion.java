@@ -4,7 +4,7 @@ public class Recursion implements hw1{
     }
     public int fact(int n){
 	if (n<0){
-	    throw new IllegalArgumentException("Can't exclaim your argument!!!!!");
+	    throw new IllegalArgumentException();
 	} else if (n==0){
 	    return 1;
 	} else {
@@ -16,7 +16,7 @@ public class Recursion implements hw1{
     }
     public int fibit(int a, int b, int n){
 	if (n<0){
-	    throw new IllegalArgumentException("Domain Error");
+	    throw new IllegalArgumentException();
 	} else if (n==0){
 	    return b;
 	} else {
@@ -25,13 +25,15 @@ public class Recursion implements hw1{
     }
     public double sqrt(double n){
 	if (n<0){
-	    throw new IllegalArgumentException("Domain Error");
+	    throw new IllegalArgumentException();
+	} else if (n==0){
+	    return 0;
 	} else {
-	    return (double)Math.round(squirt(n,n) * 10000000)/10000000;
+	    return squirt(n,1);
 	}
     }
     public double squirt(double n, double g){
-	if (Math.abs(g*g-n) < 0.00001){
+	if (Math.abs(g*g-n) <= 0.00001){
 	    return g;
 	} else {
 	    return squirt(n,(g+(n/g))/2);
@@ -39,12 +41,29 @@ public class Recursion implements hw1{
     }
     public static void main(String[]args){
 	Recursion cur = new Recursion();
-	System.out.println(cur.fact(4));
-	System.out.println(cur.fib(9));
-	System.out.println(cur.sqrt(576));
-	System.out.println(cur.sqrt(2));
-	System.out.println(cur.sqrt(1));
-	System.out.println(cur.sqrt(0));
-	System.out.println(cur.sqrt(-1));
+	System.out.println(cur.fact(0));
+	System.out.println(cur.fact(1));
+	System.out.println(cur.fact(5));
+	try{
+	    System.out.println(cur.fact(-1));
+	} catch (IllegalArgumentException t){
+	    System.out.println(cur.fib(0));
+	    System.out.println(cur.fib(2));
+	    System.out.println(cur.fib(5));
+	    System.out.println(cur.fib(10));
+	    try{
+	    System.out.println(cur.fib(-1));
+	    } catch (IllegalArgumentException r){
+		System.out.println(cur.sqrt(169.0));
+		System.out.println(cur.sqrt(1.0));
+		System.out.println(cur.sqrt(1.0E-8));
+		System.out.println(cur.sqrt(0.0));
+		try {
+		System.out.println(cur.sqrt(-100));
+		} catch (IllegalArgumentException e){
+
+		}
+	    }
+	}
     }
 }
