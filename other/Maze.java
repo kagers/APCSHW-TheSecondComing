@@ -17,10 +17,7 @@ public class Maze{
     public static char[][] solver(char[][] maze, int x, int y){
 	if (maze[y][x] == 'E'){
 	    maze[y][x] = '@';
-	    return maze;
-	} else if (maze[y][x] != 'S' && maze[y][x] != ' '){
-	    return maze;
-	} else {
+	} else if (maze[y][x]=='S' || maze[y][x]==' '){
 	    if (isHere(maze,'@')){
 		maze[y][x]='@';
 	    } else {
@@ -32,8 +29,8 @@ public class Maze{
 		    maze[y][x]='@';
 		}
 	    }
-	    return maze;
 	}
+	return maze;
     }
     public static boolean isHere(char[][] array, char target){
 	for (int i=0; i<array.length; i++){
@@ -63,11 +60,11 @@ public class Maze{
 	print(solveM(lab));
 	System.out.println();
 	char[][] laby = {{'X','X','X','X','X','X'},
-			 {'X','S','X','E','X','X'},
+			 {'X','S','X',' ','X','X'},
 			 {'X',' ','X','X',' ','X'},
 			 {'X',' ',' ',' ',' ','X'},
-			 {'X',' ','X','X',' ','X'},
-			 {'X',' ','X',' ',' ','X'},
+			 {'X','X','X','X',' ','X'},
+			 {'X','E',' ',' ',' ','X'},
 			 {'X','X','X','X','X','X'}};
         print(laby);
 	System.out.println();
