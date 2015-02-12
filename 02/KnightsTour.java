@@ -25,6 +25,10 @@ public class KnightsTour{
 	catch (InterruptedException e) {
 	}
     }
+
+    public String name(){
+	return "Gershfeld,Katherine";
+    }
     
     public String toString(){
 	String ans = "\n";
@@ -56,35 +60,36 @@ public class KnightsTour{
     }
     
     public boolean solve(int x,int y,int currentMoveNumber){
-	System.out.println(clear);
-	System.out.println(this);
+	//System.out.println(clear);
+	//System.out.println(this);
 	//wait(10);
 	
 	if ((x>=board[1].length || x<0 || y>=board.length || y<0) ||
 	    (board[y][x]!=-1)){
 	    return false;
 	}
-	board[y][x] = currentMoveNumber;
-	if (currentMoveNumber==Math.pow(board.length,2)-1){
+	if (currentMoveNumber==(board.length*board[0].length)-1){
+	    board[y][x] = currentMoveNumber;
 	    return true;
 	}
-	if (!(solve(x-2,y+1,currentMoveNumber+1) ||
-	      solve(x+2,y-1,currentMoveNumber+1) ||
-	      solve(x+2,y+1,currentMoveNumber+1) ||
-	      solve(x-2,y-1,currentMoveNumber+1) ||
-	      solve(x+1,y+2,currentMoveNumber+1) ||
-	      solve(x+1,y-2,currentMoveNumber+1) ||
-	      solve(x-1,y+2,currentMoveNumber+1) ||
-	      solve(x-1,y-2,currentMoveNumber+1))){
+	if (board[y][x] == -1){
+	    board[y][x] = currentMoveNumber;
+	    if (solve(x-2,y+1,currentMoveNumber+1) ||
+		solve(x-2,y-1,currentMoveNumber+1) ||
+		solve(x+2,y+1,currentMoveNumber+1) ||
+		solve(x+2,y-1,currentMoveNumber+1) ||
+		solve(x+1,y+2,currentMoveNumber+1) ||
+		solve(x+1,y-2,currentMoveNumber+1) ||
+		solve(x-1,y+2,currentMoveNumber+1) ||
+		solve(x-1,y-2,currentMoveNumber+1)){
+		return true;
+	    }
+		//} else {
+		//board[y][x] = currentMoveNumber;
+		//return true;
 	    board[y][x] = -1;
-	    return false;
-	    //} else {
-	    //board[y][x] = currentMoveNumber;
-	    //return true;
-	} else{
-	    return true;
 	}
-	//return false;
+	return false;
     }
     
     public boolean solveable(){

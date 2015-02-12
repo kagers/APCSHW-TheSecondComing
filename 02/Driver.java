@@ -11,6 +11,7 @@ public class Driver{
 	k = new KnightsTour(size);
 	System.out.println(k.clear);
 	k.solve();
+	System.out.println(k);
 	System.out.println(k.solveable());
     }
 
