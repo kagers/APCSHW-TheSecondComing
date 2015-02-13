@@ -9,10 +9,8 @@ public class Driver{
 	    size = 4;
 	}
 	k = new KnightsTour(size);
-	System.out.println(k.clear);
-	k.solve();
+	System.out.println(k.solve());
 	System.out.println(k);
-	System.out.println(k.solveable());
     }
 
 }
