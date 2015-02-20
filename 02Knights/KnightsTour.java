@@ -11,8 +11,6 @@ public class KnightsTour{
     
     //instance variable
     private int[][]board;
-    private boolean display = false;
-    private boolean closed = false;
     
     //terminal specific character to move the cursor
     private String go(int x,int y){
@@ -61,11 +59,8 @@ public class KnightsTour{
     }
     
     public boolean solve(int x,int y,int currentMoveNumber){
-	
-	if (display){
-	    System.out.println(this);
-	    wait(10);
-	}
+	/*System.out.println(this);
+	  wait(10);*/
 	if ((x>=board[1].length || x<0 || y>=board.length || y<0) ||
 	    (board[y][x]!=0)){
 	    return false;
