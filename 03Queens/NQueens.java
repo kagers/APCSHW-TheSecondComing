@@ -8,6 +8,10 @@ public class NQueens{
     
     public NQueens(int size){
 	board = new char[size][size];
+	reset();
+    }
+
+    private void reset(){
 	for (int i=0; i<board.length; i++){
 	    for (int j=0; j<board[i].length; j++){
 		board[i][j] = '_';
@@ -44,7 +48,7 @@ public class NQueens{
 
     public boolean solve(){
 	for (int i=0; i<board.length; i++){
-	    if (solve(0,i)){
+	    if (solve(i,0)){
 		return true;
 	    }
 	}
@@ -52,12 +56,12 @@ public class NQueens{
     }
 
     public boolean solve(int x){
-	return solve(x,0);
+	return solve(0,x);
     }
 
     private boolean solve(int x, int y){
-	System.out.println(this);
-	wait(500);
+	//System.out.println(this);
+	//wait(500);
 	//System.out.println(x+" "+y);
 	if (y == board.length){
 	    return true;
@@ -82,6 +86,7 @@ public class NQueens{
 			return true;
 		    }
 		}
+		board[y][x] = '_';
 		return false;
 	    } else {
 		//System.out.println("d");

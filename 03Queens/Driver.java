@@ -10,6 +10,6 @@ public class Driver{
 	n = new NQueens(size);
 	//System.out.println(n.check(1,1,-1,-1));
 	System.out.println(n.solve());
-	//System.out.println(n);
+	System.out.println(n);
     }
 }
