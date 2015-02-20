@@ -56,32 +56,25 @@ public class NQueens{
     }
 
     public boolean solve(int x){
-	return solve(0,x);
+	return solve(x,0);
     }
 
     private boolean solve(int x, int y){
-	//System.out.println(this);
-	//wait(500);
-	//System.out.println(x+" "+y);
 	if (y == board.length){
 	    return true;
 	} else if (x<0 || y<0 || x>=board.length){
-	    //System.out.println("a");
 	    return false;
 	} else {
-	    //System.out.println("b");
 	    board[y][x] = 'Q';
-	    //System.out.println(this);
 	    if (check(x,y,0,1) &&
 		check(x,y,1,0) &&
 		check(x,y,1,1) &&
+		check(x,y,1,-1) &&
 		check(x,y,0,-1) &&
 		check(x,y,-1,0) &&
-		check(x,y,1,-1) &&
-		check(x,y,-1,1) &&
-		check(x,y,-1,-1)){
+		check(x,y,-1,-1) &&
+		check(x,y,-1,1)){
 		for (int i=0; i<board[0].length; i++){
-		//System.out.println("c");
 		    if (solve(i,y+1)){
 			return true;
 		    }
@@ -89,61 +82,25 @@ public class NQueens{
 		board[y][x] = '_';
 		return false;
 	    } else {
-		//System.out.println("d");
 		board[y][x] = '_';
-		return false;//solve(x+1,y);
+		return false;
 	    }
 	}
     }
 
-    /*private boolean checkCol(int x){
-	int q = 0;
-	for (int i=0; i<board.length; i++){
-	    if (board[i][x] == 'Q'){
-	        q++;
-	    }
-	} 
-	return q<=1;
-    }
-
-    private boolean checkRow(int y){
-	int q = 0;
-	for (int i=0; i<board.length; i++){
-	    if (board[y][i] == 'Q'){
-		q++;
-	    }
-	} 
-	return q<=1;
-    }*/
-
     public boolean check(int x, int y, int h, int v){
-	/*board = new char[3][3];
-	board[0][0] = 'Q';
-	board[0][1] = '-';
-	board[0][2] = '-';
-	board[1][0] = '-';
-	board[1][1] = 'Q';
-	board[1][2] = '-';
-	board[2][0] = '-';
-	board[2][1] = '-';
-	board[2][2] = 'Q';*/
 	int q = 0;
 	while (x<board.length-1 && y<board.length-1 && (x>0 || h==0) && (y>0 || v==0)){
-	    //System.out.println(x+" 1 "+y);
 	    x-=h;
 	    y-=v;
 	}
-	//System.out.println(x+" "+y);
-	//System.out.println(x>=0 && y>=0);
 	while (x<board.length && y<board.length && x>=0 && y>=0){
-	    //System.out.println(x+" 2 "+y);
 	    if (board[y][x] == 'Q'){
 		q++;
 	    }
 	    x+=h;
 	    y+=v;
 	}
-	//System.out.println(q);
 	return q<=1;
     }
 

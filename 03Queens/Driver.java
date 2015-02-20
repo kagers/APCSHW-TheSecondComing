@@ -8,8 +8,11 @@ public class Driver{
 	    size = 4;
 	}
 	n = new NQueens(size);
-	//System.out.println(n.check(1,1,-1,-1));
-	System.out.println(n.solve());
+	try{
+	    System.out.println(n.solve(Integer.parseInt(args[1])));
+	} catch (Exception f){
+	    System.out.println(n.solve());
+	}
 	System.out.println(n);
     }
 }
