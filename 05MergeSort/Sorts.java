@@ -50,41 +50,93 @@ public class Sorts{
 
 	if (args.length>0){
 
-	    int[] f = new int[1000000];
+	    int size = 1000000;
+	    try{
+		size = Integer.parseInt(args[0]);}
+	    catch (Exception e){}
+
+	    int[] eins = new int[size]; //sorted
+	    int[] zwei = new int[size]; //reverse sorted
+	    int[] drei = new int[size]; //small random range
+	    int[] vier = new int[size]; //large random range
+	    int[] funf = new int[size]; //Arrays.sort
+
 	    Random r = new Random();
 
-	    if (args[0].equals("1")){
-		for (int i=0; i<f.length; i++){
-		    f[i]=i;
-		}
-	    } else if (args[0].equals("2")){
-		for (int i=0; i<f.length; i++){
-		    f[i]=f.length-i;
-		}
-	    } else if (args[0].equals("3a")){
-		for (int i=0; i<f.length; i++){
-		    f[i]=r.nextInt(3)+1;
-		}
-	    } else if (args[0].equals("3b")){
-		for (int i=0; i<f.length; i++){
-		    f[i]=r.nextInt((1000000+1000000) + 1)-1000000;
-		}
+	    for (int i=0; i<eins.length; i++){
+		eins[i]=i;
 	    }
-
-	    int[] g = new int[f.length];
-	    System.arraycopy(f, 0, g, 0, f.length);
-
+	    
+	    for (int i=0; i<zwei.length; i++){
+		zwei[i]=zwei.length-i;
+	    }
+	    
+	    for (int i=0; i<drei.length; i++){
+		drei[i]=r.nextInt(3)+1;
+	    }
+	    
+	    for (int i=0; i<vier.length; i++){
+		vier[i]=r.nextInt((1000000+1000000) + 1)-1000000;
+	    }
+	   
+	    System.out.println("sorted:");
+	    System.arraycopy(eins, 0, funf, 0, size);
 	    long start = System.currentTimeMillis();
-	    Sorts.mergesort(f);
+	    Sorts.mergesort(eins);
 	    long end = System.currentTimeMillis();
 	    System.out.println(end-start);
 	    
 	    start = System.currentTimeMillis();
-	    Arrays.sort(g);
+	    Arrays.sort(funf);
 	    end = System.currentTimeMillis();
 	    System.out.println(end-start);
 	    
-	    System.out.println(arrayEquals(f,g));
+	    System.out.println(arrayEquals(eins,funf));
+	    
+	    
+	    System.out.println("\nreverse sorted:");
+	    System.arraycopy(zwei, 0, funf, 0, size);
+	    start = System.currentTimeMillis();
+	    Sorts.mergesort(zwei);
+	    end = System.currentTimeMillis();
+	    System.out.println(end-start);
+	    
+	    start = System.currentTimeMillis();
+	    Arrays.sort(funf);
+	    end = System.currentTimeMillis();
+	    System.out.println(end-start);
+	    
+	    System.out.println(arrayEquals(zwei,funf));
+
+
+	    System.out.println("\nsmall random range:");
+	    System.arraycopy(drei, 0, funf, 0, size);
+	    start = System.currentTimeMillis();
+	    Sorts.mergesort(drei);
+	    end = System.currentTimeMillis();
+	    System.out.println(end-start);
+	    
+	    start = System.currentTimeMillis();
+	    Arrays.sort(funf);
+	    end = System.currentTimeMillis();
+	    System.out.println(end-start);
+	    
+	    System.out.println(arrayEquals(drei,funf));
+
+	    
+	    System.out.println("\nlarge random range:");
+	    System.arraycopy(vier, 0, funf, 0, size);
+	    start = System.currentTimeMillis();
+	    Sorts.mergesort(vier);
+	    end = System.currentTimeMillis();
+	    System.out.println(end-start);
+	    
+	    start = System.currentTimeMillis();
+	    Arrays.sort(funf);
+	    end = System.currentTimeMillis();
+	    System.out.println(end-start);
+	    
+	    System.out.println(arrayEquals(vier,funf));
 	}
 
 	/*int[] a = {0,6,6};
