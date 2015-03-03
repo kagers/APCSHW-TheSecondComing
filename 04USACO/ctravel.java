@@ -1,33 +1,26 @@
 import java.util.*;
+import java.io.*;
 
 public class ctravel{
     
-    private int[] one = new int[3];
+    private int sec = 0;
     private char[][] field;
     private int[][] paths;
     private int[][] paths2;
     private int[] three = new int[4];
 
-    public ctravel(String filename){
-	/*one[0] = 4;
-	one[1] = 5;
-	one[2] = 6;
-	field = new char[][]{
-	    {'.','.','.','*','.'},
-	    {'.','.','.','*','.'},
-	    {'.','.','.','.','.'},
-	    {'.','.','.','.','.'}
-	    };*/
-	one[0] = 5;
-	one[1] = 5;
-	one[2] = 14;
-	field = new char[][]{
-	    {'.','.','.','.','*'},
-	    {'.','.','.','.','.'},
-	    {'.','.','*','.','.'},
-	    {'.','.','.','.','.'},
-	    {'*','.','.','.','.'}
-	};
+    public ctravel() throws IOException{
+	Scanner s = new Scanner(new BufferedReader(new FileReader("ctravel.in")));
+	field = new char[Integer.parseInt(s.next())][Integer.parseInt(s.next())];
+	sec = Integer.parseInt(s.next());
+	for (int i=0; i<field.length; i++){
+	    String str = s.next();
+	    //System.out.println(str);
+	    //System.out.println(s.next());
+	    for(int j=0; j<field[0].length; j++){
+		field[i][j] = str.charAt(j);
+	    }
+	}
 	paths = new int[field.length][field[0].length];
 	for (int i=0; i<field.length; i++){
 	    for (int j=0; j<field[0].length; j++){
@@ -38,20 +31,39 @@ public class ctravel{
 	}
 	paths2 = new int[paths.length][paths[0].length];
 	copy(paths,paths2);
-	//System.arraycopy(paths,0,paths2,0,paths.length);
-	/*three[0] = 1;
-	three[1] = 3;
-	three[2] = 1;
-	three[3] = 5;*/
-	three[0] = 1;
-	three[1] = 1;
-	three[2] = 5;
-	three[3] = 5;
+	for (int i=0; i<4; i++){
+	    three[i] = Integer.parseInt(s.next());
+	}
+	s.close();
+	System.out.println(sec);
+	System.out.println(Arrays.toString(three));
+	System.out.println(Arrays.deepToString(field));
     }
 
     public int solve(){
+	return solve(three[0]-1,three[1]-1,0);
+    }
+
+    public int solve(int row, int col, int s){
+	if (row < 0 || row >= field.length || col < 0 || col >= field[0].length){
+	    return 0;
+	}
+	if (s == this.sec && (row != three[2]-1 || col != three[3]-1)){
+	    return 0;
+	}
+	if (s == this.sec && row == three[2]-1 && col == three[3]-1){
+	    return 1;
+	}
+	if (field[row][col] == '*'){
+	    return 0;
+	}
+	return solve(row+1,col,s+1) + solve(row-1,col,s+1) + solve(row,col+1,s+1) + solve(row,col-1,s+1);
+	
+    }
+
+    /*public int solve(){
 	paths2[three[0]-1][three[1]-1] = 1;
-	for (int seconds=0; seconds<14; seconds++){
+	for (int seconds=0; seconds<this.sec; seconds++){
 	    //System.out.println(this);
 	    for (int i=0; i<paths.length; i++){
 		for (int j=0; j<paths[i].length; j++){
@@ -100,14 +112,14 @@ public class ctravel{
 	    ret+="\n";
 	}
 	ret+="\n";
-	*/for (int i=0; i<paths2.length; i++){
+	for (int i=0; i<paths2.length; i++){
 	    for (int j=0; j<paths2[0].length; j++){
 		ret+=paths2[i][j]+"\t";
 	    }
 	    ret+="\n";
 	}
 	return ret;
-    }
+	}*/
 
     public static void copy(int[][] a, int[][] b){
 	for (int i=0; i<a.length; i++){
@@ -118,9 +130,17 @@ public class ctravel{
     }
 
     public static void main(String[] args){
-	ctravel screwthis = new ctravel("");
-	System.out.println(screwthis.solve());
-	//System.out.println(screwthis);
+	try{
+	    ctravel screwthis = new ctravel();
+	    System.out.println(screwthis.solve());
+	    //System.out.println(screwthis);
+	    
+	    PrintWriter p = new PrintWriter(new BufferedWriter(new FileWriter("ctravel.out")));
+	    // p.println(screwthis.solve());
+	    p.close();
+	} catch (IOException e){
+
+	}
     }
 
 }
