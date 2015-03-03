@@ -1,10 +1,16 @@
+import java.util.*;
+import java.io.*;
+
 public class makelake{
     
-    public static int lake(int[] one, int[][] two, int[] three, int[] four){
-	two = directions(two, three);
+    public static int lake(int d, int[][] two, int[][] three){
+	//two = directions(two, three);
 	//System.out.println("hello !");
-	two = directions(two, four);
-	int depth = one[2];
+	//two = directions(two, four);
+	for (int i=0; i<three.length; i++){
+	    two = directions(two, three[i]);
+	}
+	int depth = d;
 	int adepth = 0;
 	for (int i = 0; i < two.length; i++){
 	    for (int j = 0; j < two[i].length; j++){
@@ -63,8 +69,8 @@ public class makelake{
 	return ans;
     }
 
-    public static void main(String[]args){
-	int[][] map = new int[][]{
+    public static void main(String[]args) throws IOException{
+	/*int[][] map = new int[][]{
 	    {28,25,20,32,34,36},
 	    {27,25,20,20,30,34},
 	    {24,20,20,20,20,30},
@@ -72,8 +78,27 @@ public class makelake{
 	};
 	int[] one = {4,6,22,2};
 	int[] three = {1,4,4};
-	int[] four = {1,1,10};
+	int[] four = {1,1,10};*/
 
-	System.out.println(lake(one,map,three,four));
+	
+	PrintWriter p = new PrintWriter(new BufferedWriter(new FileWriter("makelake.out")));
+
+	Scanner s = new Scanner(new BufferedReader(new FileReader("makelake.in")));
+	int[][] pasture = new int[Integer.parseInt(s.next())][Integer.parseInt(s.next())];
+	int d = Integer.parseInt(s.next());
+	int[][] instructions = new int[Integer.parseInt(s.next())][3];
+	for(int i = 0; i < pasture.length; i++){
+	    for(int j = 0; j < pasture[0].length; j++){
+		pasture[i][j] = Integer.parseInt(s.next());
+	    }
+	}
+	for(int i = 0; i < instructions.length; i++){
+	    for(int j = 0; j < instructions[0].length; j++){
+		instructions[i][j] = Integer.parseInt(s.next());
+	    }
+	}
+	p.println(lake(d,pasture,instructions));
+	p.close();
+	s.close();
     }
 }
