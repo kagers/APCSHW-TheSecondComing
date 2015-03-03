@@ -136,7 +136,7 @@ public class ctravel{
 	    //System.out.println(screwthis);
 	    
 	    PrintWriter p = new PrintWriter(new BufferedWriter(new FileWriter("ctravel.out")));
-	    // p.println(screwthis.solve());
+	    p.println(screwthis.solve());
 	    p.close();
 	} catch (IOException e){
 
