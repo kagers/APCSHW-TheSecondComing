@@ -1,7 +1,7 @@
 public class LNode{
  
     private int data;
-    private Lnode next;
+    private LNode next;
    
     public LNode(){
 	data = 0;
@@ -12,10 +12,10 @@ public class LNode{
     }
 
     public String toString(){
-	return getData();
+	return getData()+"";
     }
 
-    public String getData(){
+    public int getData(){
 	return data;
     }
 
