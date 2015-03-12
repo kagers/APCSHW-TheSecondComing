@@ -4,11 +4,16 @@ public class LNode{
     private LNode next;
    
     public LNode(){
-	data = 0;
+	this(0,null);
     }
     
     public LNode(int value){
+	this(value,null);
+    }
+
+    public LNode(int value, LNode nxt){
 	data = value;
+	next = nxt;
     }
 
     public String toString(){
@@ -19,7 +24,7 @@ public class LNode{
 	return data;
     }
 
-    public void setValue(int value){
+    public void setData(int value){
 	data = value;
     }
 
