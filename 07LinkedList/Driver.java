@@ -45,16 +45,22 @@ public class Driver{
 	System.out.println();
 	System.out.println(zelda.remove(1));
 	System.out.println(zelda);
+	System.out.println(" "+zelda.size());
 	System.out.println(zelda.remove(4));
 	System.out.println(zelda);
+	System.out.println(" "+zelda.size());
 	System.out.println(zelda.remove(3));
 	System.out.println(zelda);
+	System.out.println(" "+zelda.size());
 	System.out.println(zelda.remove(2));
 	System.out.println(zelda);
+	System.out.println(" "+zelda.size());
 	System.out.println(zelda.remove(0));
 	System.out.println(zelda);
+	System.out.println(" "+zelda.size());
 	System.out.println(zelda.remove(0));
 	System.out.println(zelda);
+	System.out.println(" "+zelda.size());
 	//System.out.println(zelda.remove(1));
 	//System.out.println(zelda);
 
