@@ -1,6 +1,9 @@
 import java.util.*;
 
 public class Sorts{
+    public String name(){
+	return "gershfeld.katherine";
+    }
     public static void mergey(int[] array, int starta, int enda, int startb, int endb){
 	int i  = starta;
 	int ia = 0;
@@ -36,7 +39,8 @@ public class Sorts{
 	    mergehelp(array,a,((b-a)/2)+a,((b-a)/2)+1+a,b);
 	    mergehelp(array,c,((d-c)/2)+c,((d-c)/2)+1+c,d);
 	}
-	mergey(array,a,b,c,d);	
+	mergey(array,a,b,c,d);
+	//System.out.println(Arrays.toString(array));
     }
     public static boolean arrayEquals(int[] a, int[] b){
 	for (int i=0; i<a.length; i++){
@@ -47,7 +51,13 @@ public class Sorts{
 	return true;
     }
     public static void main(String[] args){
+	
+	int[] a = {0,1,2,3,4,5,6,7};
+	int[] b = {3,1,7,4,6,0,2,5};
+	int[] c = {7,5,3,1,6,4,2,0};
 
+	mergesort(c);
+	
 	if (args.length>0){
 
 	    int size = 1000000;
