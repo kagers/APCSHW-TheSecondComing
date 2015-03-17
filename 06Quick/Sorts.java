@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Sorts{
 
-    public String name(){
+    public static String name(){
 	return "gershfeld.katherine";
     }
     
@@ -99,6 +99,46 @@ public class Sorts{
 	    quicksorth(ary,is,si-1);
 	    quicksorth(ary,ei+1,ie);
 	}
+    }
+
+    public static void mergey(int[] array, int starta, int enda, int startb, int endb){
+	int i  = starta;
+	int ia = 0;
+	int ib = 0;
+	int[] a = Arrays.copyOfRange(array,starta,enda+1);
+	int[] b = Arrays.copyOfRange(array,startb,endb+1);
+	while (ia<a.length && ib<b.length){
+	    if (a[ia]<b[ib]){
+		array[i] = a[ia];
+		ia++;
+	    } else{
+		array[i] = b[ib];
+		ib++;
+	    }
+	    i++;
+	}
+	while (ia<a.length){
+	    array[i] = a[ia];
+	    ia++;
+	    i++;
+	}
+	while (ib<b.length){
+	    array[i] = b[ib];
+	    ib++;
+	    i++;
+	}		
+    }
+
+    public static void mergesort(int[] array){
+	mergehelp(array,0,(array.length/2)-1,array.length/2,array.length-1);
+    }
+
+    public static void mergehelp(int[] array, int a, int b, int c, int d){
+	if (b-a>0 || d-c>0){
+	    mergehelp(array,a,((b-a)/2)+a,((b-a)/2)+1+a,b);
+	    mergehelp(array,c,((d-c)/2)+c,((d-c)/2)+1+c,d);
+	}
+	mergey(array,a,b,c,d);	
     }
 
     public static void switcheroo(int[] ary, int ai, int bi){

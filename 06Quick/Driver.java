@@ -80,7 +80,7 @@ public class Driver{
 		//drei[i]=r.nextInt(3)+1;
 	    }
 
-	    Sorts.randomize(drei);
+	    Sorts.randomize(drei,7);
 	    
 	    /*	    for (int i=0; i<vier.length; i++){
 		vier[i]=r.nextInt((1000000+1000000) + 1)-1000000;
@@ -100,7 +100,7 @@ public class Driver{
 	    System.out.println(end-start);
 
 	    start = System.currentTimeMillis();
-	    mergesort(acht);
+	    Sorts.mergesort(acht);
 	    end = System.currentTimeMillis();
 	    System.out.println(end-start);
 	    
@@ -122,7 +122,7 @@ public class Driver{
 	    System.out.println(end-start);
 
 	    start = System.currentTimeMillis();
-	    mergesort(acht);
+	    Sorts.mergesort(acht);
 	    end = System.currentTimeMillis();
 	    System.out.println(end-start);
 	    
@@ -144,7 +144,7 @@ public class Driver{
 	    System.out.println(end-start);
 	    
 	    start = System.currentTimeMillis();
-	    mergesort(acht);
+	    Sorts.mergesort(acht);
 	    end = System.currentTimeMillis();
 	    System.out.println(end-start);
 	    
