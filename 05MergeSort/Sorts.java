@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Sorts{
-    public String name(){
+    public static String name(){
 	return "gershfeld.katherine";
     }
     public static void mergey(int[] array, int starta, int enda, int startb, int endb){
