@@ -231,6 +231,22 @@ public class Driver{
 		System.out.println(link);
 		System.out.println(" "+zelda.size());
 		System.out.println(" "+link.size());
+
+	    } else if (Integer.parseInt(args[0])==2){
+		MyLinkedList<Integer> hello = new MyLinkedList<Integer>();
+		hello.add(0);
+		hello.add(9);
+		hello.add(1);
+		hello.add(8);
+		hello.add(2);
+		hello.add(7);
+		hello.add(3);
+		hello.add(6);
+		hello.add(4);
+		hello.add(5);
+		for (int i : hello){
+		    System.out.println(i);
+		}
 	    }
 
 	} catch(Exception e){

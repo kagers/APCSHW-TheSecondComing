@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class MyLinkedList<T>{
+public class MyLinkedList<T> implements Iterable<T>{
 
     private LNode<T> start;
     private LNode<T> end;
@@ -21,6 +21,10 @@ public class MyLinkedList<T>{
 	end = start;
 	size = 0;
 	//now = begin;
+    }
+
+    public Iterator<T> iterator(){
+	return new MyLinkedListIterator<T>(start);
     }
 
     public String toString(){
@@ -157,7 +161,7 @@ public class MyLinkedList<T>{
 	    }
 	    now = now.getNext();
 	    i++;
-	}
+	} 
 	//now = start;
 	return -1;
     }
@@ -166,6 +170,30 @@ public class MyLinkedList<T>{
 	size = 0;
 	start = new LNode<T>();
 	end = start;	    
+    }
+
+    public class MyLinkedListIterator<T> implements Iterator<T>{
+	
+	private LNode<T> start;
+	
+	public MyLinkedListIterator(LNode<T> hi){
+	    start = hi;
+	}
+
+	public boolean hasNext(){
+	    return (start != null);
+	}
+
+	public T next(){
+	    T data = start.getData();
+	    start = start.getNext();
+	    return data;
+	}
+
+	public void remove(){
+	    throw new UnsupportedOperationException();
+	}
+
     }
 
 }
