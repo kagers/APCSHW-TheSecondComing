@@ -143,6 +143,7 @@ public class Driver{
 		System.out.println(" "+link.size());
 		zelda.add(1,"cc");
 		link.add(1,"cc");
+		System.out.println("j");
 		System.out.println(zelda);
 		System.out.println(link);
 		System.out.println(" "+zelda.size());
@@ -159,13 +160,38 @@ public class Driver{
 		System.out.println(link);
 		System.out.println(" "+zelda.size());
 		System.out.println(" "+link.size());
+		//for (int i=0; i<zelda.size(); i++){
+		//    System.out.println(zelda.get(i)+" "+zelda.get(i+1));
+		//}
 		zelda.add(4,"ee");
 		link.add(4,"ee");
 		System.out.println(zelda);
 		System.out.println(link);
 		System.out.println(" "+zelda.size());
 		System.out.println(" "+link.size());
-	
+
+		zelda.add("oof");
+		link.add("oof");
+		System.out.println(zelda);
+		System.out.println(link);
+		System.out.println(" "+zelda.size());
+		System.out.println(" "+link.size());
+		zelda.remove(zelda.size()-1);
+		link.remove(link.size()-1);
+		System.out.println(zelda);
+		System.out.println(link);
+
+		System.out.println(" "+zelda.size());
+		System.out.println(" "+link.size());
+		zelda.set(zelda.size()-1,"oof");
+		link.set(link.size()-1,"oof");
+		System.out.println(zelda);
+		System.out.println(link);
+		zelda.set(zelda.size()-1,"gg");
+		link.set(link.size()-1,"gg");
+		System.out.println(zelda);
+		System.out.println(link);
+
 		System.out.println();
 		System.out.println(zelda.get(0));
 		System.out.println(link.get(0));
@@ -249,7 +275,7 @@ public class Driver{
 		}
 	    }
 
-	} catch(Exception e){
+	} catch(NoSuchElementException e){
 
 	}
 
