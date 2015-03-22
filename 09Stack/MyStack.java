@@ -14,12 +14,18 @@ public class MyStack<T>{
     }
 
     public T peek(){
-	return stack.get(0);
+	if (!empty()){
+	    return stack.get(0);
+	}
+	throw new EmptyStackException();
     }
 
     public T pop(){
-	peek();
-	return stack.remove(0);
+	if (!empty()){
+	    peek();
+	    return stack.remove(0);
+	}
+	throw new EmptyStackException();
     }
 
     public boolean empty(){

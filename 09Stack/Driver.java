@@ -27,6 +27,8 @@ public class Driver{
 	System.out.println(s.pop());
 
 	System.out.println(s.empty());
+	
+	s.pop();
 
     }
 
