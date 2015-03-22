@@ -17,9 +17,9 @@ public class MyStack<T>{
 	return stack.get(0);
     }
 
-    public void pop(){
+    public T pop(){
 	peek();
-	return remove(0);
+	return stack.remove(0);
     }
 
     public boolean empty(){
