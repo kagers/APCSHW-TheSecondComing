@@ -7,6 +7,10 @@ public class MyStack<T>{
     public MyStack(){
 	stack = new LinkedList<T>();
     }
+    
+    public String name(){
+    	return "gershfeld.katherine";
+    }
 
     public T push(T item){
 	stack.add(0,item);
