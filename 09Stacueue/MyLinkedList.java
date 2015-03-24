@@ -37,6 +37,9 @@ public class MyLinkedList<T> implements Iterable<T>{
     }
 
     public boolean add(T value){
+	if (value == null){
+	    throw new NullPointerException();
+	}
 	LNode<T> now = start;
 	if (size==0){
 	    start = new LNode<T>(value);
@@ -50,6 +53,9 @@ public class MyLinkedList<T> implements Iterable<T>{
     }
 
     public boolean add(int index, T value){
+	if (value == null){
+	    throw new NullPointerException();
+	}
 	LNode<T> now = start;
 	if (index<0 || index>size()){
 	    throw new IndexOutOfBoundsException();

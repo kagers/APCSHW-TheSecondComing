@@ -18,6 +18,9 @@ public class MyQueue<T>{
     }
 
     public T dequeue(){
+	if (q.size()== 0){
+	    throw new NoSuchElementException();
+	}
 	return q.remove(0);
     }
 
