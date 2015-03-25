@@ -11,18 +11,23 @@ public class MyDeque<T>{
     }
 
     public String name(){
-	
+	return "gershfeld.katherine";
     }
 
     public void addFirst(T value){
 	if (head>1 && head-1!=tail){
 	    data[head-1]=value;
+	    head--;
 	}
     }
 
     public void addLast(T value){
 	if (tail<data.length-1 && tail+1!=head){
 	    data[tail+1]=value;
+	    tail++;
+	} else if (head<tail && tail==data.length-1){
+	    data = resize();
+	    addLast(value);
 	}
     }
 
