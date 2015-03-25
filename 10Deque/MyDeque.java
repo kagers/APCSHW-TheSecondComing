@@ -10,12 +10,20 @@ public class MyDeque<T>{
 	Object[] data = new Object[100];
     }
 
-    public void addFirst(T value){
+    public String name(){
 	
     }
 
-    public void addLast(T value){
+    public void addFirst(T value){
+	if (head>1 && head-1!=tail){
+	    data[head-1]=value;
+	}
+    }
 
+    public void addLast(T value){
+	if (tail<data.length-1 && tail+1!=head){
+	    data[tail+1]=value;
+	}
     }
 
     public T removeFirst(){
@@ -44,6 +52,16 @@ public class MyDeque<T>{
 	    throw new NoSuchElementException();
 	}
 	return (T)data[tail];
+    }
+
+    private Object[] resize(){
+	Object[] ret = new Object[data.length*2];
+	if (tail>head){
+	    for (int i=0;i<data.length;i++){
+		ret[i]=data[i];
+	    }
+	}
+	return ret;
     }
 
 }
