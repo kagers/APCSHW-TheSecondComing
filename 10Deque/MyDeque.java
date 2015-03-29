@@ -8,6 +8,8 @@ public class MyDeque<T>{
     
     public MyDeque(){
 	Object[] data = new Object[100];
+	head=0;
+	tail=head;
     }
 
     public String name(){
@@ -15,11 +17,15 @@ public class MyDeque<T>{
     }
 
     public void addFirst(T value){
-	if (head>1 && head-1!=tail){
+	if (head>0 && head-1!=tail){
 	    data[head-1]=value;
 	    head--;
-	} else if (head==0 && tail<0){
-	    data[
+	} else if (head==0 && tail<data.length-1){
+	    data[data.length-1]=value;
+	    head=data.length-1;
+	} else {
+	    resize();
+	    addFirst(value);
 	}
     }
 
@@ -28,7 +34,7 @@ public class MyDeque<T>{
 	    data[tail+1]=value;
 	    tail++;
 	} else if (head<tail && tail==data.length-1){
-	    data = resize();
+	    resize();
 	    addLast(value);
 	}
     }
@@ -37,14 +43,14 @@ public class MyDeque<T>{
 	if (head==tail){
 	    throw new NoSuchElementException();
 	}
-	//return (T)1;
+	return (T)"f";
     }
 
     public T removeLast(){
 	if (head==tail){
 	    throw new NoSuchElementException();
 	}
-	//return (T)1;
+	return (T)"f";
     }
 
     public T getFirst(){
@@ -64,19 +70,55 @@ public class MyDeque<T>{
     private void resize(){
 	Object[] ret = new Object[data.length*2];
 	if (tail>=head){
-	    for (int i=0;i<data.length;i++){
-		ret[i]=data[i];
+	    int k=0;
+	    for (int i=head;i<=tail;i++){
+		ret[k]=data[i];
+		k++;
 	    }
 	} else{
 	    for (int i=head;i<data.length;i++){
-		ret[i]=deq[i];
+		ret[i]=data[i];
 	    }
 	    for (int i=0;i<=tail;i++){
 		ret[i+data.length+1] = data[i];
 		tail+=data.length+1;
 	    }
 	}
+	head=0;
+	tail=data.length;
 	data=ret;
+    }
+
+    public String toString(){
+	String ret = "[ ";
+	if (Math.abs(tail-head)!=0){
+	    if (head<=tail){
+		for (int i=head;i<=tail;i++){
+		    ret+=data[i]+" ";
+		}
+	    }else{
+		for (int i=head;i<data.length;i++){
+		    ret+=data[i]+" ";
+		}
+		for (int i=0;i<=tail;i++){
+		    ret+=data[i]+" ";
+		}
+	    }
+	}
+	return ret+"]";
+    }
+
+    public static void main(String[] args){
+	MyDeque<String> d = new MyDeque<String>();
+	System.out.println(d);
+	d.addFirst("a");
+	d.addLast("b");
+	d.addFirst("c");
+	d.addFirst("d");
+	d.addLast("e");
+	d.addLast("f");
+	d.addFirst("g");
+	System.out.println(d);
     }
 
 }
