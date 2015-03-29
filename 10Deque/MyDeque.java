@@ -18,6 +18,8 @@ public class MyDeque<T>{
 	if (head>1 && head-1!=tail){
 	    data[head-1]=value;
 	    head--;
+	} else if (head==0 && tail<0){
+	    data[
 	}
     }
 
@@ -59,14 +61,22 @@ public class MyDeque<T>{
 	return (T)data[tail];
     }
 
-    private Object[] resize(){
+    private void resize(){
 	Object[] ret = new Object[data.length*2];
-	if (tail>head){
+	if (tail>=head){
 	    for (int i=0;i<data.length;i++){
 		ret[i]=data[i];
 	    }
+	} else{
+	    for (int i=head;i<data.length;i++){
+		ret[i]=deq[i];
+	    }
+	    for (int i=0;i<=tail;i++){
+		ret[i+data.length+1] = data[i];
+		tail+=data.length+1;
+	    }
 	}
-	return ret;
+	data=ret;
     }
 
 }
