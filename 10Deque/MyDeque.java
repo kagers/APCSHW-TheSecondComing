@@ -19,7 +19,6 @@ public class MyDeque<T>{
     }
 
     public void addFirst(T value){
-	//System.out.println(Arrays.toString(data));
 	if (head>0 && head-1!=tail){
 	    data[head-1]=value;
 	    head--;
@@ -37,7 +36,6 @@ public class MyDeque<T>{
     }
 
     public void addLast(T value){
-	//System.out.println(getFirst()+" "+getLast());
 	if (tail<data.length-1 && tail+1!=head){
 	    data[tail+1]=value;
 	    tail++;
@@ -50,7 +48,6 @@ public class MyDeque<T>{
 	    tail=0;
 	    size++;
 	}
-	//System.out.println(getFirst()+" "+getLast());
 	//System.out.println(Arrays.toString(data));
     }
 
@@ -114,16 +111,12 @@ public class MyDeque<T>{
 		    j++;
 		}
 	    }
-	    //System.out.println(Arrays.toString(ret));
 	    for (int i=0;i<=tail;i++){
-		//System.out.println(data[i]+" "+i);
 		if (data[i]!=null){
-		    //System.out.println("kkk");
 		    ret[j]=data[i];
 		    j++;
 		}
 	    }
-	    //System.out.println(Arrays.toString(ret));
 	}
 	head=0;
 	tail=data.length-2;
@@ -151,7 +144,6 @@ public class MyDeque<T>{
 		}
 	    }
 	}
-	//System.out.println(Arrays.toString(data));
 	return ret+"]";
     }
 
@@ -167,7 +159,6 @@ public class MyDeque<T>{
 	q.addFirst(6);
 	q.addLast(7);
 	q.addFirst(8);
-	//System.out.println("k");
 	q.addLast(9);
 	q.addFirst(10);
 	q.addLast(11);
