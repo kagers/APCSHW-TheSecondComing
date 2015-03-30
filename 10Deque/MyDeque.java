@@ -7,7 +7,7 @@ public class MyDeque<T>{
     private int tail;
     
     public MyDeque(){
-	Object[] data = new Object[100];
+	data = new Object[10];
 	head=0;
 	tail=head;
     }
@@ -17,6 +17,7 @@ public class MyDeque<T>{
     }
 
     public void addFirst(T value){
+	System.out.println(Arrays.toString(data));
 	if (head>0 && head-1!=tail){
 	    data[head-1]=value;
 	    head--;
@@ -24,6 +25,7 @@ public class MyDeque<T>{
 	    data[data.length-1]=value;
 	    head=data.length-1;
 	} else {
+	    System.out.println('j');
 	    resize();
 	    addFirst(value);
 	}
@@ -76,21 +78,31 @@ public class MyDeque<T>{
 		k++;
 	    }
 	} else{
+	    int j=0;
 	    for (int i=head;i<data.length;i++){
-		ret[i]=data[i];
+		if (data[i]!=null){
+		    ret[j]=data[i];
+		    j++;
+		}
 	    }
+	    System.out.println(Arrays.toString(ret));
 	    for (int i=0;i<=tail;i++){
-		ret[i+data.length+1] = data[i];
-		tail+=data.length+1;
+		System.out.println(data[i]+" "+i);
+		if (data[i]!=null){
+		    System.out.println("kkk");
+		    ret[j]=data[i];
+		    j++;
+		}
 	    }
+	    System.out.println(Arrays.toString(ret));
 	}
 	head=0;
-	tail=data.length;
+	tail=data.length-1;
 	data=ret;
     }
 
     public String toString(){
-	String ret = "[ ";
+	String ret = getFirst()+" "+getLast()+" [ ";
 	if (Math.abs(tail-head)!=0){
 	    if (head<=tail){
 		for (int i=head;i<=tail;i++){
@@ -98,26 +110,36 @@ public class MyDeque<T>{
 		}
 	    }else{
 		for (int i=head;i<data.length;i++){
-		    ret+=data[i]+" ";
+		    if (data[i]!=null){
+			ret+=data[i]+" ";
+		    }
 		}
 		for (int i=0;i<=tail;i++){
-		    ret+=data[i]+" ";
+		    if (data[i]!=null){
+			ret+=data[i]+" ";
+		    }
 		}
 	    }
 	}
+	System.out.println(Arrays.toString(data));
 	return ret+"]";
     }
 
     public static void main(String[] args){
-	MyDeque<String> d = new MyDeque<String>();
-	System.out.println(d);
-	d.addFirst("a");
-	d.addLast("b");
-	d.addFirst("c");
-	d.addFirst("d");
-	d.addLast("e");
-	d.addLast("f");
-	d.addFirst("g");
+	MyDeque<Integer> d = new MyDeque<Integer>();
+	//System.out.println(d);
+	d.addFirst(0);
+	d.addLast(1);
+	d.addFirst(2);
+	d.addLast(3);
+	d.addFirst(4);
+	d.addLast(5);
+	d.addFirst(6);
+	d.addLast(7);
+	d.addFirst(8);
+	d.addLast(9);
+	d.addFirst(10);
+	d.addLast(11);
 	System.out.println(d);
     }
 
