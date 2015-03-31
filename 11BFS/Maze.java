@@ -3,7 +3,7 @@ import java.io.*;
 
 public class Maze{
     
-    private char[][]maze;
+    private char[][] maze;
     private int maxx,maxy;
     private int startx,starty;
     private MyDeque deck;
@@ -64,12 +64,11 @@ public class Maze{
     private String show(){
 	return  "[?25h";
     }
+
     private String invert(){
 	return  "[37";
     }
 
-    
-    
     public void clearTerminal(){
 	System.out.println(clear());
     }
@@ -94,8 +93,43 @@ public class Maze{
     }
     
     public void solveBFS(){
-
+	helpBFS(0,0,0);
     }
     
+    public boolean helpBFS(int x, int y, int move){
+	if (y>maze.length || x>maze[0].length || y<0 || x<0 || maze[y][x]=='#'){
+	    return false;
+	} else if (maze[y][x]=='E'){
+	    return true;
+	} else {
+	    return true;
+	}
+    }
     
+    public class Coordinate{
+	private int x;
+	private int y;
+
+	public Coordinate(int xx,int yy){
+	    x=xx;
+	    y=yy;
+	}
+
+	public String toString(){
+	    return "("+x+","+y+")";
+	}
+	public void setX(int xx){
+	    x=xx;
+	}
+	public void setY(int yy){
+	    y=yy;
+	}
+	public int getX(){
+	    return x;
+	}
+	public int getY(){
+	    return y;
+	}
+    }
+
 }
