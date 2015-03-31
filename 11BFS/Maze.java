@@ -95,8 +95,22 @@ public class Maze{
     public void solveBFS(){
 	helpBFS(0,0,0);
     }
+
+    public void solveDFS(){
+	helpBFS(0,0,0);
+    }
     
     public boolean helpBFS(int x, int y, int move){
+	if (y>maze.length || x>maze[0].length || y<0 || x<0 || maze[y][x]=='#'){
+	    return false;
+	} else if (maze[y][x]=='E'){
+	    return true;
+	} else {
+	    return true;
+	}
+    }
+
+    public boolean helpDFS(int x, int y, int move){
 	if (y>maze.length || x>maze[0].length || y<0 || x<0 || maze[y][x]=='#'){
 	    return false;
 	} else if (maze[y][x]=='E'){
@@ -130,6 +144,10 @@ public class Maze{
 	public int getY(){
 	    return y;
 	}
+    }
+
+    public class Frontier{
+      
     }
 
 }
