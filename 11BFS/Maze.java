@@ -6,7 +6,7 @@ public class Maze{
     private char[][] maze;
     private int maxx,maxy;
     private int startx,starty;
-    private MyDeque deck;
+    private MyDeque<Coordinate> deck;
 
     private static final int DFS = 1;
     private static final int BFS = 0;	
@@ -92,32 +92,47 @@ public class Maze{
 	return hide()+invert()+go(0,0)+ans+"\n"+show();
     }
     
-    public void solveBFS(){
-	helpBFS(0,0,0);
-    }
-
-    public void solveDFS(){
-	helpBFS(0,0,0);
-    }
-    
-    public boolean helpBFS(int x, int y, int move){
-	if (y>maze.length || x>maze[0].length || y<0 || x<0 || maze[y][x]=='#'){
+    public boolean solve(){
+	/*if (y>maze.length || x>maze[0].length || y<0 || x<0 || maze[y][x]=='#'){
 	    return false;
 	} else if (maze[y][x]=='E'){
 	    return true;
 	} else {
 	    return true;
+	    }*/
+	Coordinate start = new Coordinate(0,0);
+	LNode<Coordinate> s = new LNode(start);
+	for (int i=0; i<maze.length; i++){
+	    for (int j=0; j<maze[0].length){
+		if (maze[i][j]=='S'){
+		    start.setX(j);
+		    start.setY(i);
+		}
+	    }
+	}
+        deck.addFirst(start);
+	LNode<Coordinate> ampere = s;
+	while (true){
+	    if (maze[ampere.getData().getY()+1][ampere.getData().getX()] == '.'){
+		ampere.setNext();
+	    } else if (maze[start.getY()-1][start.getX()] == '.'){
+
+	    } else if (maze[start.getY()][start.getX()+1] == '.'){
+
+	    } else if (maze[start.getY()][start.getX()-1] == '.'){
+
+	    }
 	}
     }
 
-    public boolean helpDFS(int x, int y, int move){
-	if (y>maze.length || x>maze[0].length || y<0 || x<0 || maze[y][x]=='#'){
+    public boolean solveDFS(){
+	/*if (y>maze.length || x>maze[0].length || y<0 || x<0 || maze[y][x]=='#'){
 	    return false;
 	} else if (maze[y][x]=='E'){
 	    return true;
 	} else {
 	    return true;
-	}
+	    }*/
     }
     
     public class Coordinate{
@@ -147,7 +162,7 @@ public class Maze{
     }
 
     public class Frontier{
-      
+	
     }
 
 }
