@@ -93,13 +93,6 @@ public class Maze{
     }
     
     public boolean solve(){
-	/*if (y>maze.length || x>maze[0].length || y<0 || x<0 || maze[y][x]=='#'){
-	    return false;
-	} else if (maze[y][x]=='E'){
-	    return true;
-	} else {
-	    return true;
-	    }*/
 	Coordinate start = new Coordinate(0,0);
 	LNode<Coordinate> s = new LNode(start);
 	for (int i=0; i<maze.length; i++){
@@ -112,27 +105,26 @@ public class Maze{
 	}
         deck.addFirst(start);
 	LNode<Coordinate> ampere = s;
+	Coordinate temp = new Coordinate();;
 	while (true){
-	    if (maze[ampere.getData().getY()+1][ampere.getData().getX()] == '.'){
-		ampere.setNext();
-	    } else if (maze[start.getY()-1][start.getX()] == '.'){
-
-	    } else if (maze[start.getY()][start.getX()+1] == '.'){
-
-	    } else if (maze[start.getY()][start.getX()-1] == '.'){
-
+	    temp = deck.removeLast();
+	    if (maze[temp.getY()][temp.getX()]=='.'){
+		maze[temp.getY()][temp.getX()]='@';
+		deck.addLast(new Coordinate(temp.getX()+1,temp.getY()));
+		deck.addLast(new Coordinate(temp.getX()-1,temp.getY()));
+		deck.addLast(new Coordinate(temp.getX(),temp.getY()+1));
+		deck.addLast(new Coordinate(temp.getX(),temp.getY()-1));
+	    } else if (maze[temp.getY()][temp.getX()]=='#'){
+		deck.removeLast();
+	    } else if (maze[temp.getY()][temp.getX()]=='E'){
+		break;
 	    }
 	}
+       
     }
 
     public boolean solveDFS(){
-	/*if (y>maze.length || x>maze[0].length || y<0 || x<0 || maze[y][x]=='#'){
-	    return false;
-	} else if (maze[y][x]=='E'){
-	    return true;
-	} else {
-	    return true;
-	    }*/
+
     }
     
     public class Coordinate{
