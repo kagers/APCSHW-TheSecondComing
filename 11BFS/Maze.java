@@ -6,7 +6,7 @@ public class Maze{
     private char[][] maze;
     private int maxx,maxy;
     private int startx,starty;
-    private MyDeque<Coordinate> deck;
+    private Frontier<Coordinate> deck;
 
     private static final int DFS = 1;
     private static final int BFS = 0;	
@@ -46,7 +46,6 @@ public class Maze{
 	    }
 	}
 	
-	deck = new MyDeque();
     }
     
     private String go(int x,int y){
@@ -106,15 +105,16 @@ public class Maze{
         deck.addFirst(start);
 	LNode<Coordinate> ampere = s;
 	Coordinate temp = new Coordinate();;
-	while (true){
-	    temp = deck.removeLast();
+	while (deck.size()>0){
+	    temp = deck.remove();
 	    if (maze[temp.getY()][temp.getX()]=='.'){
 		maze[temp.getY()][temp.getX()]='@';
-		deck.addLast(new Coordinate(temp.getX()+1,temp.getY()));
-		deck.addLast(new Coordinate(temp.getX()-1,temp.getY()));
-		deck.addLast(new Coordinate(temp.getX(),temp.getY()+1));
-		deck.addLast(new Coordinate(temp.getX(),temp.getY()-1));
-	    } else if (maze[temp.getY()][temp.getX()]=='#'){
+		deck.add(new Coordinate(temp.getX()+1,temp.getY()));
+		deck.add(new Coordinate(temp.getX()-1,temp.getY()));
+		deck.add(new Coordinate(temp.getX(),temp.getY()+1));
+		deck.add(new Coordinate(temp.getX(),temp.getY()-1));
+	    } else if (maze[temp.getY()][temp.getX()]=='#'||
+		       maze[temp.getY()][temp.getX()]=='@'){
 		deck.removeLast();
 	    } else if (maze[temp.getY()][temp.getX()]=='E'){
 		break;
@@ -153,8 +153,26 @@ public class Maze{
 	}
     }
 
-    public class Frontier{
-	
+    public class Frontier<T>{
+	private MyDeque<T> = new MyDeque<T>();
+	private boolean stck;
+
+	public Frontier(boolean stack){
+	    stck = stack;
+	}
+	public void add(T value){
+	    addFirst();
+	}
+	public T remove(){
+	    if (stack){
+		removeFirst();
+	    } else{
+		removeLast();
+	    }
+	}
+	public String toString(){
+	    return "";
+	}
     }
 
 }
