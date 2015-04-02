@@ -124,7 +124,13 @@ public class Maze{
     }
 
     public boolean solveDFS(){
+	deck = new Frontier<Coordinate>(true);
+	solve();
+    }
 
+    public boolean solveBFS(){
+	deck = new Frontier<Coordinate>(false);
+	solve();
     }
     
     public class Coordinate{
