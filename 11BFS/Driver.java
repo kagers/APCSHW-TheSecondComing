@@ -8,8 +8,11 @@ public class Driver{
 	    f = new Maze(args[0]);
 	}
 	f.clearTerminal();
-	f.solveBFS();
-	
+	if (args.length > 2){
+	    f.solveDFS(true);
+	} else {
+	    f.solveBFS(true);
+	}
     }
 
 }

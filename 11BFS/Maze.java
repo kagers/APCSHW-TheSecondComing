@@ -8,8 +8,9 @@ public class Maze{
     private int startx,starty;
     private Frontier<Coordinate> deck;
 
-    private static final int DFS = 1;
-    private static final int BFS = 0;	
+    private static final String clear =  "\033[2J";
+    private static final String hide =  "\033[?25l";
+    private static final String show =  "\033[?25h";	
 
     public Maze(String filename){
 	startx = -1;
@@ -44,29 +45,17 @@ public class Maze{
 	    }
 	}
     }
-    
-    private String go(int x,int y){
-	return ("["+x+";"+y+"H");
-    }
-    
-    private String clear(){
-	return  "[2J";
-    }
-    
-    private String hide(){
-	return  "[?25l";
-    }
-    
-    private String show(){
-	return  "[?25h";
-    }
 
+    private String go(int x, int y){
+	return ("\033[" + x + ";" + y + "H");
+    }
+    
     private String invert(){
 	return  "[37";
     }
 
     public void clearTerminal(){
-	System.out.println(clear());
+	System.out.println(clear);
     }
     
     public void wait(int millis){
@@ -85,15 +74,19 @@ public class Maze{
 	    }
 	    ans += maze[i%maxx][i/maxx];
 	}
-	//return ans;
-	return hide()+invert()+go(0,0)+ans+"\n"+show();
+	return ans;
+    }
+
+    public String toString(boolean animate){
+	if (animate){
+	    return hide+go(0,0)+toString()+"\n"+show;
+	}
+	return toString();
     }
     
-    public boolean solve(){
-	//System.out.println(this);
-	wait(100);
+    public boolean solve(boolean animate){
 	Coordinate start = new Coordinate(0,0);
-	//LNode<Coordinate> s = new LNode(start);
+	LNode<Coordinate> s = new LNode(start);
 	for (int i=0; i<maze.length; i++){
 	    for (int j=0; j<maze[0].length; j++){
 		if (maze[i][j]=='S'){
@@ -105,42 +98,40 @@ public class Maze{
 	//System.out.println(deck);
         deck.add(start);
 	//System.out.println(deck);
-	//LNode<Coordinate> ampere = s;
+	LNode<Coordinate> ampere = s;
 	Coordinate temp = new Coordinate(0,0);
-	System.out.println(deck);
+	//System.out.println(deck);
 	while (deck.size()>0){
-	    System.out.println(this);
-	    wait(100);
+	    if (animate){
+		System.out.println(toString(true));
+		wait(1);
+	    }
 	    temp = deck.remove();
 	    //System.out.println(deck);
 	    //System.out.println(temp);
 	    //System.out.println(maze[temp.getY()][temp.getX()]);
 	    if (maze[temp.getY()][temp.getX()]==' ' ||
 		maze[temp.getY()][temp.getX()]=='S'){
-		maze[temp.getY()][temp.getX()]='@';
+		maze[temp.getY()][temp.getX()]='x';
 		deck.add(new Coordinate(temp.getX()+1,temp.getY()));
 		deck.add(new Coordinate(temp.getX()-1,temp.getY()));
 		deck.add(new Coordinate(temp.getX(),temp.getY()+1));
 		deck.add(new Coordinate(temp.getX(),temp.getY()-1));
-	    } else if (maze[temp.getY()][temp.getX()]=='#'||
-		       maze[temp.getY()][temp.getX()]=='@'){
-		//deck.remove();
 	    } else if (maze[temp.getY()][temp.getX()]=='E'){
-		break;
+		return true;
 	    }
-	    //System.out.println(deck+"L");
 	}
-	return true;
+	return false;
     }
 
-    public boolean solveDFS(){
+    public boolean solveDFS(boolean animate){
 	deck = new Frontier<Coordinate>(true);
-	return solve();
+	return solve(animate);
     }
 
-    public boolean solveBFS(){
+    public boolean solveBFS(boolean animate){
 	deck = new Frontier<Coordinate>(false);
-	return solve();
+	return solve(animate);
     }
     
     public class Coordinate{
