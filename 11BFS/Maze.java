@@ -6,6 +6,7 @@ public class Maze{
     private char[][] maze;
     private int maxx,maxy;
     private int startx,starty;
+    private LNode<Coordinate> s;
     private Frontier<Coordinate> deck;
 
     private static final String clear =  "\033[2J";
@@ -36,6 +37,7 @@ public class Maze{
 	    e.printStackTrace();
 	    System.exit(0);
 	}
+	s = new LNode<Coordinate>();
 	maze = new char[maxx][maxy];
 	for(int i=0;i<ans.length();i++){
 	    char c = ans.charAt(i);
@@ -70,7 +72,8 @@ public class Maze{
     public String toString(){
 	//do not do the funky character codes, this is used for non-animated printing,
 	//it is just the string representation of the maze (before or after solving).
-	String ans = ""+maxx+","+maxy+"\n";
+	//String ans = ""+maxx+","+maxy+"\n";
+	String ans = "";
 	for(int i=0;i<maxx*maxy;i++){
 	    if(i%maxx ==0 && i!=0){
 		ans+="\n";
@@ -92,7 +95,7 @@ public class Maze{
     
     public boolean solve(boolean animate){
 	Coordinate start = new Coordinate(0,0);
-	LNode<Coordinate> s = new LNode(start);
+	s = new LNode<Coordinate>(start);
 	for (int i=0; i<maze.length; i++){
 	    for (int j=0; j<maze[0].length; j++){
 		if (maze[i][j]=='S'){
@@ -102,16 +105,17 @@ public class Maze{
 	    }
 	}
         deck.add(start);
-	LNode<Coordinate> ampere = s;
+	LNode<Coordinate> ampere = new LNode<Coordinate>();
 	Coordinate temp = new Coordinate(0,0);
 	while (deck.size()>0){
 	    if (animate){
 		System.out.println(toString(true));
-		wait(10);
+		wait(1);
 	    }
-	    System.out.println(deck);
+	    //System.out.println(deck);
 	    temp = deck.remove();
-	    System.out.println(temp);
+	    ampere.setNext(new LNode<Coordinate>(temp));
+	    //System.out.println(temp);
 	    try{
 		if (maze[temp.getY()][temp.getX()]==' ' ||
 		    maze[temp.getY()][temp.getX()]=='S'){
@@ -121,12 +125,17 @@ public class Maze{
 		    deck.add(new Coordinate(temp.getX(),temp.getY()+1));
 		    deck.add(new Coordinate(temp.getX(),temp.getY()-1));
 		} else if (maze[temp.getY()][temp.getX()]=='E'){
+		    s = ampere;
 		    return true;
+		} else if (maze[temp.getY()][temp.getX()]=='x' ||
+			   maze[temp.getY()][temp.getX()]=='#'){
+		    ampere = ampere.getNext();
 		}
 	    } catch(NullPointerException e){
 
 	    }
 	}
+	s = ampere;
 	return false;
     }
 
@@ -161,7 +170,12 @@ public class Maze{
       *Precondition :  solveBFS() OR solveDFS() has already been called (otherwise an empty array is returned)
       *Postcondition:  the correct solution is in the returned array
       */
-    public int[] solutionCoordinates(){ 
+    public int[] solutionCoordinates(){
+	System.out.println(s);
+	while (s.getNext()!=null){
+	    System.out.println(s.getData());
+	    s=s.getNext();
+	}
 	return new int[0];
     }    
     

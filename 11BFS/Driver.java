@@ -13,6 +13,7 @@ public class Driver{
 	} else {
 	    f.solveBFS(true);
 	}
+	f.solutionCoordinates();
     }
 
 }
