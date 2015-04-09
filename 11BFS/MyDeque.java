@@ -37,6 +37,20 @@ public class MyDeque<T>{
 	    addFirst(value);
 	}
 	//System.out.println(Arrays.toString(data));
+	adj();
+    }
+
+    public void adj(){
+	if (size==1){
+	    tail=head;
+	} 
+	if (data[tail]==null){
+	    if (tail-1<0){
+		tail=data.length-1;
+	    } else{
+		tail--;
+	    }
+	}
     }
 
     public void addLast(T value){
@@ -53,6 +67,7 @@ public class MyDeque<T>{
 	    size++;
 	}
 	//System.out.println(Arrays.toString(data));
+	adj();
     }
 
     public T removeFirst(){
@@ -67,13 +82,23 @@ public class MyDeque<T>{
 	}
 	size--;
 	//System.out.println(Arrays.toString(data));
+	adj();
 	return ret;
     }
 
     public T removeLast(){
+	adj();
 	if (size==0){
 	    throw new NoSuchElementException();
 	}
+	/*if (data[tail]==null && size>0){
+	    System.out.println("KK"+data[tail]);
+	    if (tail-1<0){
+		tail=data.length-1;
+	    } else{
+		tail--;
+	    }
+	    }*/
 	T ret = getLast();
 	data[tail]=null;
 	tail--;
@@ -82,6 +107,7 @@ public class MyDeque<T>{
 	}
 	size--;
 	//System.out.println(Arrays.toString(data));
+	adj();
 	return ret;
     }
 
@@ -93,6 +119,7 @@ public class MyDeque<T>{
     }
 
     public T getLast(){
+	adj();
 	if (size==0){
 	    throw new NoSuchElementException();
 	}
@@ -133,6 +160,7 @@ public class MyDeque<T>{
     public String toString(){
 	String ret = "[ ";
 	if (size!=0){
+	    ret = getFirst()+" "+getLast()+" "+"[ ";
 	    if (head<=tail){
 		for (int i=head;i<=tail;i++){
 		    ret+=data[i]+" ";

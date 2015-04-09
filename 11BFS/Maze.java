@@ -107,18 +107,24 @@ public class Maze{
 	while (deck.size()>0){
 	    if (animate){
 		System.out.println(toString(true));
-		wait(1);
+		wait(10);
 	    }
+	    System.out.println(deck);
 	    temp = deck.remove();
-	    if (maze[temp.getY()][temp.getX()]==' ' ||
-		maze[temp.getY()][temp.getX()]=='S'){
-		maze[temp.getY()][temp.getX()]='x';
-		deck.add(new Coordinate(temp.getX()+1,temp.getY()));
-		deck.add(new Coordinate(temp.getX()-1,temp.getY()));
-		deck.add(new Coordinate(temp.getX(),temp.getY()+1));
-		deck.add(new Coordinate(temp.getX(),temp.getY()-1));
-	    } else if (maze[temp.getY()][temp.getX()]=='E'){
-		return true;
+	    System.out.println(temp);
+	    try{
+		if (maze[temp.getY()][temp.getX()]==' ' ||
+		    maze[temp.getY()][temp.getX()]=='S'){
+		    maze[temp.getY()][temp.getX()]='x';
+		    deck.add(new Coordinate(temp.getX()+1,temp.getY()));
+		    deck.add(new Coordinate(temp.getX()-1,temp.getY()));
+		    deck.add(new Coordinate(temp.getX(),temp.getY()+1));
+		    deck.add(new Coordinate(temp.getX(),temp.getY()-1));
+		} else if (maze[temp.getY()][temp.getX()]=='E'){
+		    return true;
+		}
+	    } catch(NullPointerException e){
+
 	    }
 	}
 	return false;
