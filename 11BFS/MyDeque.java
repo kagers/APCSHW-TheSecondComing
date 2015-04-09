@@ -18,6 +18,10 @@ public class MyDeque<T>{
 	return "gershfeld.katherine";
     }
 
+    public int size(){
+	return size;
+    }
+
     public void addFirst(T value){
 	if (head>0 && head-1!=tail){
 	    data[head-1]=value;

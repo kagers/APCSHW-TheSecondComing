@@ -17,7 +17,6 @@ public class Maze{
 	String ans = "";
 	try{
 	    Scanner in = new Scanner(new File(filename));
-	    
 	    //keep reading next line
 	    while(in.hasNext()){
 		String line= in.nextLine();
@@ -35,7 +34,6 @@ public class Maze{
 	    e.printStackTrace();
 	    System.exit(0);
 	}
-	
 	maze = new char[maxx][maxy];
 	for(int i=0;i<ans.length();i++){
 	    char c = ans.charAt(i);
@@ -45,7 +43,6 @@ public class Maze{
 		starty = i/maxx;
 	    }
 	}
-	
     }
     
     private String go(int x,int y){
@@ -93,18 +90,18 @@ public class Maze{
     
     public boolean solve(){
 	Coordinate start = new Coordinate(0,0);
-	LNode<Coordinate> s = new LNode(start);
+	//LNode<Coordinate> s = new LNode(start);
 	for (int i=0; i<maze.length; i++){
-	    for (int j=0; j<maze[0].length){
+	    for (int j=0; j<maze[0].length; j++){
 		if (maze[i][j]=='S'){
 		    start.setX(j);
 		    start.setY(i);
 		}
 	    }
 	}
-        deck.addFirst(start);
-	LNode<Coordinate> ampere = s;
-	Coordinate temp = new Coordinate();;
+        deck.add(start);
+	//LNode<Coordinate> ampere = s;
+	Coordinate temp = new Coordinate(0,0);;
 	while (deck.size()>0){
 	    temp = deck.remove();
 	    if (maze[temp.getY()][temp.getX()]=='.'){
@@ -115,22 +112,22 @@ public class Maze{
 		deck.add(new Coordinate(temp.getX(),temp.getY()-1));
 	    } else if (maze[temp.getY()][temp.getX()]=='#'||
 		       maze[temp.getY()][temp.getX()]=='@'){
-		deck.removeLast();
+		deck.remove();
 	    } else if (maze[temp.getY()][temp.getX()]=='E'){
 		break;
 	    }
 	}
-       
+	return true;
     }
 
     public boolean solveDFS(){
 	deck = new Frontier<Coordinate>(true);
-	solve();
+	return solve();
     }
 
     public boolean solveBFS(){
 	deck = new Frontier<Coordinate>(false);
-	solve();
+	return solve();
     }
     
     public class Coordinate{
@@ -157,28 +154,33 @@ public class Maze{
 	public int getY(){
 	    return y;
 	}
+
     }
 
     public class Frontier<T>{
-	private MyDeque<T> = new MyDeque<T>();
+	private MyDeque<T> dq = new MyDeque<T>();
 	private boolean stck;
 
 	public Frontier(boolean stack){
 	    stck = stack;
 	}
 	public void add(T value){
-	    addFirst();
+	    dq.addFirst(value);
 	}
 	public T remove(){
-	    if (stack){
-		removeFirst();
+	    if (stck){
+		return dq.removeFirst();
 	    } else{
-		removeLast();
+		return dq.removeLast();
 	    }
 	}
-	public String toString(){
-	    return "";
+	public int size(){
+	    return dq.size();
 	}
-    }
+	public String toString(){
+	    return dq.toString();
+	}
 
+    }
+    
 }
