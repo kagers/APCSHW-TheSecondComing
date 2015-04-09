@@ -96,6 +96,9 @@ public class MyDeque<T>{
 	if (size==0){
 	    throw new NoSuchElementException();
 	}
+	if (size==1 && (T)data[tail]==null){
+	    return getFirst();
+	}
 	return (T)data[tail];
     }
 
@@ -130,7 +133,6 @@ public class MyDeque<T>{
     public String toString(){
 	String ret = "[ ";
 	if (size!=0){
-	    ret = getFirst()+" "+getLast()+" [ ";
 	    if (head<=tail){
 		for (int i=head;i<=tail;i++){
 		    ret+=data[i]+" ";

@@ -85,10 +85,13 @@ public class Maze{
 	    }
 	    ans += maze[i%maxx][i/maxx];
 	}
+	//return ans;
 	return hide()+invert()+go(0,0)+ans+"\n"+show();
     }
     
     public boolean solve(){
+	//System.out.println(this);
+	wait(100);
 	Coordinate start = new Coordinate(0,0);
 	//LNode<Coordinate> s = new LNode(start);
 	for (int i=0; i<maze.length; i++){
@@ -99,12 +102,21 @@ public class Maze{
 		}
 	    }
 	}
+	//System.out.println(deck);
         deck.add(start);
+	//System.out.println(deck);
 	//LNode<Coordinate> ampere = s;
-	Coordinate temp = new Coordinate(0,0);;
+	Coordinate temp = new Coordinate(0,0);
+	System.out.println(deck);
 	while (deck.size()>0){
+	    System.out.println(this);
+	    wait(100);
 	    temp = deck.remove();
-	    if (maze[temp.getY()][temp.getX()]=='.'){
+	    //System.out.println(deck);
+	    //System.out.println(temp);
+	    //System.out.println(maze[temp.getY()][temp.getX()]);
+	    if (maze[temp.getY()][temp.getX()]==' ' ||
+		maze[temp.getY()][temp.getX()]=='S'){
 		maze[temp.getY()][temp.getX()]='@';
 		deck.add(new Coordinate(temp.getX()+1,temp.getY()));
 		deck.add(new Coordinate(temp.getX()-1,temp.getY()));
@@ -112,10 +124,11 @@ public class Maze{
 		deck.add(new Coordinate(temp.getX(),temp.getY()-1));
 	    } else if (maze[temp.getY()][temp.getX()]=='#'||
 		       maze[temp.getY()][temp.getX()]=='@'){
-		deck.remove();
+		//deck.remove();
 	    } else if (maze[temp.getY()][temp.getX()]=='E'){
 		break;
 	    }
+	    //System.out.println(deck+"L");
 	}
 	return true;
     }
