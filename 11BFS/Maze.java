@@ -12,6 +12,7 @@ public class Maze{
     private static final String hide =  "\033[?25l";
     private static final String show =  "\033[?25h";	
 
+    /** Same constructor as before...*/
     public Maze(String filename){
 	startx = -1;
 	starty = -1;
@@ -67,6 +68,8 @@ public class Maze{
     }
     
     public String toString(){
+	//do not do the funky character codes, this is used for non-animated printing,
+	//it is just the string representation of the maze (before or after solving).
 	String ans = ""+maxx+","+maxy+"\n";
 	for(int i=0;i<maxx*maxy;i++){
 	    if(i%maxx ==0 && i!=0){
@@ -78,6 +81,9 @@ public class Maze{
     }
 
     public String toString(boolean animate){
+	//do the funky character codes when animate is true
+	//this to string will be used in your animate, it would include the go(0,0) character, 
+	//as well as the clear/hide/show characters as you need to use them.
 	if (animate){
 	    return hide+go(0,0)+toString()+"\n"+show;
 	}
@@ -95,21 +101,15 @@ public class Maze{
 		}
 	    }
 	}
-	//System.out.println(deck);
         deck.add(start);
-	//System.out.println(deck);
 	LNode<Coordinate> ampere = s;
 	Coordinate temp = new Coordinate(0,0);
-	//System.out.println(deck);
 	while (deck.size()>0){
 	    if (animate){
 		System.out.println(toString(true));
 		wait(1);
 	    }
 	    temp = deck.remove();
-	    //System.out.println(deck);
-	    //System.out.println(temp);
-	    //System.out.println(maze[temp.getY()][temp.getX()]);
 	    if (maze[temp.getY()][temp.getX()]==' ' ||
 		maze[temp.getY()][temp.getX()]=='S'){
 		maze[temp.getY()][temp.getX()]='x';
@@ -124,15 +124,40 @@ public class Maze{
 	return false;
     }
 
+    /**Solve the maze using a frontier in a DFS manner. 
+     * When animate is true, print the board at each step of the algorithm.
+     * Replace spaces with x's as you traverse the maze. 
+     */
     public boolean solveDFS(boolean animate){
 	deck = new Frontier<Coordinate>(true);
 	return solve(animate);
     }
 
+    /**Solve the maze using a frontier in a BFS manner. 
+     * When animate is true, print the board at each step of the algorithm.
+     * Replace spaces with x's as you traverse the maze. 
+     */
     public boolean solveBFS(boolean animate){
 	deck = new Frontier<Coordinate>(false);
 	return solve(animate);
     }
+    
+    public boolean solveDFS(){
+	return solveDFS(false);
+    }
+
+    public boolean solveBFS(){
+	return solveBFS(false);
+    }
+
+    /**return an array [x1,y1,x2,y2,x3,y3...]
+      *that contains the coordinates of the solution from start to end.
+      *Precondition :  solveBFS() OR solveDFS() has already been called (otherwise an empty array is returned)
+      *Postcondition:  the correct solution is in the returned array
+      */
+    public int[] solutionCoordinates(){ 
+	return new int[0];
+    }    
     
     public class Coordinate{
 	private int x;
