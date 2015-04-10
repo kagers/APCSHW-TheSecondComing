@@ -105,17 +105,28 @@ public class Maze{
 	    }
 	}
         deck.add(start);
-	LNode<Coordinate> ampere = new LNode<Coordinate>();
+	LNode<Coordinate> ampere = new LNode<Coordinate>(start);
+	LNode<Coordinate> a = new LNode<Coordinate>();
+	LNode<Coordinate> current = new LNode<Coordinate>();
 	Coordinate temp = new Coordinate(0,0);
+	//MyLinkedList L = new MyLinkedList();
 	while (deck.size()>0){
-	    if (animate){
+	    if (!animate){
 		System.out.println(toString(true));
-		wait(1);
+		wait(100);
 	    }
+	    wait(10);
 	    //System.out.println(deck);
 	    temp = deck.remove();
-	    ampere.setNext(new LNode<Coordinate>(temp));
-	    //System.out.println(temp);
+	    System.out.println("a"+ampere);
+	    System.out.println("A:"+a);
+	    System.out.println("Current:"+current);
+	    a = new LNode<Coordinate>(temp);
+	    a.setNext(ampere);
+	    ampere = a;
+	    System.out.println("aa"+ampere);
+	    MyLinkedList L = new MyLinkedList(ampere);
+	    System.out.println(L);
 	    try{
 		if (maze[temp.getY()][temp.getX()]==' ' ||
 		    maze[temp.getY()][temp.getX()]=='S'){
@@ -124,12 +135,30 @@ public class Maze{
 		    deck.add(new Coordinate(temp.getX()-1,temp.getY()));
 		    deck.add(new Coordinate(temp.getX(),temp.getY()+1));
 		    deck.add(new Coordinate(temp.getX(),temp.getY()-1));
+		    current = a;
+		    /*LNode<Coordinate> a = new LNode<Coordinate>(temp);
+		    a.setNext(ampere);
+		    ampere = a;
+		    LNode<Coordinate> a = new LNode<Coordinate>(temp);
+		    a.setNext(ampere);
+		    ampere = a;
+		    LNode<Coordinate> a = new LNode<Coordinate>(temp);
+		    a.setNext(ampere);
+		    ampere = a;
+		    LNode<Coordinate> a = new LNode<Coordinate>(temp);
+		    a.setNext(ampere);
+		    ampere = a;*/
 		} else if (maze[temp.getY()][temp.getX()]=='E'){
-		    s = ampere;
+		    //System.out.println(s);
+		    //System.out.println(ampere);
+		    //L = new MyLinkedList(ampere);
+		    //System.out.println(L);
+		    //s = ampere;
 		    return true;
 		} else if (maze[temp.getY()][temp.getX()]=='x' ||
 			   maze[temp.getY()][temp.getX()]=='#'){
-		    ampere = ampere.getNext();
+		    System.out.println("K");
+		    ampere = current;
 		}
 	    } catch(NullPointerException e){
 

@@ -37,7 +37,7 @@ public class MyDeque<T>{
 	    addFirst(value);
 	}
 	//System.out.println(Arrays.toString(data));
-	adj();
+	//adj();
     }
 
     public void adj(){
@@ -67,7 +67,7 @@ public class MyDeque<T>{
 	    size++;
 	}
 	//System.out.println(Arrays.toString(data));
-	adj();
+	//adj();
     }
 
     public T removeFirst(){
@@ -82,12 +82,12 @@ public class MyDeque<T>{
 	}
 	size--;
 	//System.out.println(Arrays.toString(data));
-	adj();
+	//adj();
 	return ret;
     }
 
     public T removeLast(){
-	adj();
+	//adj();
 	if (size==0){
 	    throw new NoSuchElementException();
 	}
@@ -107,7 +107,7 @@ public class MyDeque<T>{
 	}
 	size--;
 	//System.out.println(Arrays.toString(data));
-	adj();
+	//adj();
 	return ret;
     }
 
@@ -119,7 +119,7 @@ public class MyDeque<T>{
     }
 
     public T getLast(){
-	adj();
+	//adj();
 	if (size==0){
 	    throw new NoSuchElementException();
 	}
