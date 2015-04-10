@@ -126,7 +126,7 @@ public class MyDeque<T>{
     public String toString(){
 	String ret = "[ ";
 	if (size!=0){
-	    ret = getFirst()+" "+getLast()+" [ ";
+	    //ret = getFirst()+" "+getLast()+" [ ";
 	    if (head<=tail){
 		for (int i=head;i<=tail;i++){
 		    ret+=data[i]+" ";
