@@ -94,7 +94,8 @@ public class Maze{
     }
     
     public boolean solve(boolean animate){
-	Coordinate start = new Coordinate(0,0);
+	//LinkedList<Coordinate> salt = new LinkedList<Coordinate>();
+	Coordinate start = new Coordinate(0,0,null);
 	s = new LNode<Coordinate>(start);
 	for (int i=0; i<maze.length; i++){
 	    for (int j=0; j<maze[0].length; j++){
@@ -105,66 +106,34 @@ public class Maze{
 	    }
 	}
         deck.add(start);
-	LNode<Coordinate> ampere = new LNode<Coordinate>(start);
-	LNode<Coordinate> a = new LNode<Coordinate>();
-	LNode<Coordinate> current = new LNode<Coordinate>();
-	Coordinate temp = new Coordinate(0,0);
-	//MyLinkedList L = new MyLinkedList();
+	Coordinate temp = new Coordinate(0,0,null);
+	Coordinate ampere = new Coordinate(0,0,null);
 	while (deck.size()>0){
-	    if (!animate){
+	    if (animate){
 		System.out.println(toString(true));
 		wait(100);
 	    }
 	    wait(10);
-	    //System.out.println(deck);
 	    temp = deck.remove();
-	    System.out.println("a"+ampere);
-	    System.out.println("A:"+a);
-	    System.out.println("Current:"+current);
-	    a = new LNode<Coordinate>(temp);
-	    a.setNext(ampere);
-	    ampere = a;
-	    System.out.println("aa"+ampere);
-	    MyLinkedList L = new MyLinkedList(ampere);
-	    System.out.println(L);
+	    System.out.println(temp);
 	    try{
 		if (maze[temp.getY()][temp.getX()]==' ' ||
 		    maze[temp.getY()][temp.getX()]=='S'){
 		    maze[temp.getY()][temp.getX()]='x';
-		    deck.add(new Coordinate(temp.getX()+1,temp.getY()));
-		    deck.add(new Coordinate(temp.getX()-1,temp.getY()));
-		    deck.add(new Coordinate(temp.getX(),temp.getY()+1));
-		    deck.add(new Coordinate(temp.getX(),temp.getY()-1));
-		    current = a;
-		    /*LNode<Coordinate> a = new LNode<Coordinate>(temp);
-		    a.setNext(ampere);
-		    ampere = a;
-		    LNode<Coordinate> a = new LNode<Coordinate>(temp);
-		    a.setNext(ampere);
-		    ampere = a;
-		    LNode<Coordinate> a = new LNode<Coordinate>(temp);
-		    a.setNext(ampere);
-		    ampere = a;
-		    LNode<Coordinate> a = new LNode<Coordinate>(temp);
-		    a.setNext(ampere);
-		    ampere = a;*/
+		    deck.add(new Coordinate(temp.getX()+1,temp.getY(),temp));
+		    deck.add(new Coordinate(temp.getX()-1,temp.getY(),temp));
+		    deck.add(new Coordinate(temp.getX(),temp.getY()+1,temp));
+		    deck.add(new Coordinate(temp.getX(),temp.getY()-1,temp));
 		} else if (maze[temp.getY()][temp.getX()]=='E'){
-		    //System.out.println(s);
-		    //System.out.println(ampere);
-		    //L = new MyLinkedList(ampere);
-		    //System.out.println(L);
-		    //s = ampere;
 		    return true;
 		} else if (maze[temp.getY()][temp.getX()]=='x' ||
 			   maze[temp.getY()][temp.getX()]=='#'){
-		    System.out.println("K");
-		    ampere = current;
+		    temp = temp.getNext();
 		}
 	    } catch(NullPointerException e){
 
 	    }
 	}
-	s = ampere;
 	return false;
     }
 
@@ -211,14 +180,16 @@ public class Maze{
     public class Coordinate{
 	private int x;
 	private int y;
+	private Coordinate next;
 
-	public Coordinate(int xx,int yy){
+	public Coordinate(int xx,int yy, Coordinate nextnext){
 	    x=xx;
 	    y=yy;
+	    next=nextnext;
 	}
 
 	public String toString(){
-	    return "("+x+","+y+")";
+	    return ("("+x+","+y+")")+" "+next;
 	}
 	public void setX(int xx){
 	    x=xx;
@@ -226,11 +197,17 @@ public class Maze{
 	public void setY(int yy){
 	    y=yy;
 	}
+	public void setNext(Coordinate nextnext){
+	    next=nextnext;
+	}
 	public int getX(){
 	    return x;
 	}
 	public int getY(){
 	    return y;
+	}
+	public Coordinate getNext(){
+	    return next;
 	}
 
     }
