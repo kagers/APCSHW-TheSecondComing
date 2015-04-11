@@ -6,7 +6,8 @@ public class Maze{
     private char[][] maze;
     private int maxx,maxy;
     private int startx,starty;
-    private LNode<Coordinate> s;
+    private int[] ohm;
+    private Coordinate temp;
     private Frontier<Coordinate> deck;
 
     private static final String clear =  "\033[2J";
@@ -37,7 +38,7 @@ public class Maze{
 	    e.printStackTrace();
 	    System.exit(0);
 	}
-	s = new LNode<Coordinate>();
+	temp = new Coordinate(0,0,null);
 	maze = new char[maxx][maxy];
 	for(int i=0;i<ans.length();i++){
 	    char c = ans.charAt(i);
@@ -88,15 +89,15 @@ public class Maze{
 	//this to string will be used in your animate, it would include the go(0,0) character, 
 	//as well as the clear/hide/show characters as you need to use them.
 	if (animate){
+	    clearTerminal();
 	    return hide+go(0,0)+toString()+"\n"+show;
 	}
 	return toString();
     }
     
     public boolean solve(boolean animate){
-	//LinkedList<Coordinate> salt = new LinkedList<Coordinate>();
 	Coordinate start = new Coordinate(0,0,null);
-	s = new LNode<Coordinate>(start);
+	ohm = new int[0];
 	for (int i=0; i<maze.length; i++){
 	    for (int j=0; j<maze[0].length; j++){
 		if (maze[i][j]=='S'){
@@ -106,16 +107,13 @@ public class Maze{
 	    }
 	}
         deck.add(start);
-	Coordinate temp = new Coordinate(0,0,null);
-	Coordinate ampere = new Coordinate(0,0,null);
 	while (deck.size()>0){
 	    if (animate){
 		System.out.println(toString(true));
-		wait(100);
+		wait(50);
 	    }
-	    wait(10);
+	    //wait(10);
 	    temp = deck.remove();
-	    System.out.println(temp);
 	    try{
 		if (maze[temp.getY()][temp.getX()]==' ' ||
 		    maze[temp.getY()][temp.getX()]=='S'){
@@ -169,12 +167,26 @@ public class Maze{
       *Postcondition:  the correct solution is in the returned array
       */
     public int[] solutionCoordinates(){
-	System.out.println(s);
-	while (s.getNext()!=null){
-	    System.out.println(s.getData());
-	    s=s.getNext();
+	if (ohm == null){
+	    return new int[0];
 	}
-	return new int[0];
+	int size = 0;
+	Coordinate temptemp = temp;
+	while (temptemp!=null){
+	    temptemp=temptemp.getNext();
+	    size+=2;
+	}
+	int[] ret = new int[size];
+	ohm = new int[size];
+	for (int i=0; i<size; i++){
+	    ret[i++]=temp.getY();
+	    ret[i]=temp.getX();
+	    temp=temp.getNext();
+	}
+	for (int i=0; i<size; i++){
+	    ohm[i]=ret[size-1-i];
+	}
+	return ohm;
     }    
     
     public class Coordinate{

@@ -1,5 +1,7 @@
+import java.util.*;
+
 public class Driver{
-    
+
     public static void main(String[]args){
 	Maze f;
 	if(args.length < 1){
@@ -7,13 +9,13 @@ public class Driver{
 	}else{
 	    f = new Maze(args[0]);
 	}
-	f.clearTerminal();
+	//f.clearTerminal();
 	if (args.length > 2){
 	    f.solveDFS(true);
 	} else {
 	    f.solveBFS(true);
 	}
-	f.solutionCoordinates();
+	System.out.println(Arrays.toString(f.solutionCoordinates()));
     }
 
 }
