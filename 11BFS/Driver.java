@@ -11,9 +11,9 @@ public class Driver{
 	}
 	//f.clearTerminal();
 	if (args.length > 2){
-	    f.solveDFS(true);
+	    f.solveDFS(!true);
 	} else {
-	    f.solveBFS(true);
+	    f.solveBFS(!true);
 	}
 	System.out.println(Arrays.toString(f.solutionCoordinates()));
     }
