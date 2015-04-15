@@ -155,36 +155,40 @@ public class MyDeque<T>{
 	return ret+"]";
     }
 
-    /* public void add(Object value,int pri){
-	priority = new int[deck.size];
+    /*public void add(Object value,int pri){
+	priority = new int[data.length];
 	
     }
 
     public T removeSmallest(){
 	if (priority!=null){
-	    int i=0;
+	    int j=head;
 	    if (size!=0){
-		ret = getFirst()+" "+getLast()+" "+"[ ";
 		if (head<=tail){
 		    for (int i=head;i<=tail;i++){
-			ret+=data[i]+" ";
+			if (priority[i]<priority[j]){
+			    j=i;
+			}
 		    }
-		}else{
-		for (int i=head;i<data.length;i++){
-		    if (data[i]!=null){
-			ret+=data[i]+" ";
+		} else{
+		    for (int i=head;i<data.length;i++){
+			if (priority[i]<priority[j]){
+			    j=i;
+			}
+		    }
+		    for (int i=0;i<=tail;i++){
+			if (priority[i]<priority[j]){
+			    j=i;
+			}
 		    }
 		}
-		for (int i=0;i<=tail;i++){
-		    if (data[i]!=null){
-			ret+=data[i]+" ";
-		    }
-		}
-		}
+	        T ret = (T)data[j];
+		return ret;
+	    } else{
+		throw new NoSuchElementException();
 	    }
-	    T ret = (T)priority[i];
-	} else {
-	    throw new NullPointerException();
+	} else{
+	    throw new NoSuchElementException();
 	}
 	}*/
 
