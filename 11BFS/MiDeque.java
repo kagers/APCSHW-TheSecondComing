@@ -7,12 +7,21 @@ public class MyDeque<T>{
     private int head;
     private int tail;
     private int size;
+    private boolean priorityQueue;
     
-    public MyDeque(){
+    public MyDeque(boolean pq){
 	data = new Object[10];
 	head=0;
-	tail=head;
+	tail=0;
 	size=0;
+	priorityQueue=pq;
+	if (pq){
+	    priority = new int[10];
+	}
+    }
+
+    public MyDeque(){
+	this(false);
     }
 
     public String name(){
@@ -124,38 +133,74 @@ public class MyDeque<T>{
 	if (size==0){
 	    throw new NoSuchElementException();
 	}
-	if (size==1 && (T)data[tail]==null){
+	/*if (size==1 && (T)data[tail]==null){
 	    return getFirst();
+	}*/
+	if (tail==0){
+	    return (T)data[data.length-1];
 	}
-	return (T)data[tail];
+	return (T)data[tail-1];
     }
 
-    private void resize(){
-	Object[] ret = new Object[data.length*2];
+    /*private void resz(int[] L){
+	int[] ret = new int[L.length*2];
 	if (tail>=head){
 	    int k=0;
 	    for (int i=head;i<=tail;i++){
-		ret[k]=data[i];
+		ret[k]=L[i];
 		k++;
 	    }
 	} else{
 	    int j=0;
-	    for (int i=head;i<data.length;i++){
-		if (data[i]!=null){
-		    ret[j]=data[i];
+	    for (int i=head;i<L.length;i++){
+		ret[j]=L[i];
+		j++;
+	    }
+	    for (int i=0;i<=tail;i++){
+		//if (L[i]!=null){
+		    ret[j]=L[i];
+		    j++;
+		    //}
+	    }
+	}
+	head=0;
+	tail=L.length-2;
+	L=ret;
+	}*/
+
+    private void resz(Object[] L){
+	Object[] ret = new Object[L.length*2];
+	if (tail>=head){
+	    int k=0;
+	    for (int i=head;i<=tail;i++){
+		ret[k]=L[i];
+		k++;
+	    }
+	} else{
+	    int j=0;
+	    for (int i=head;i<L.length;i++){
+		if (L[i]!=null){
+		    ret[j]=L[i];
 		    j++;
 		}
 	    }
 	    for (int i=0;i<=tail;i++){
-		if (data[i]!=null){
-		    ret[j]=data[i];
+		if (L[i]!=null){
+		    ret[j]=L[i];
 		    j++;
 		}
 	    }
 	}
 	head=0;
-	tail=data.length-2;
-	data=ret;
+	tail=L.length-2;
+	L=ret;
+    }
+
+    public void resize(){
+	//if (priorityQueue){
+	//    resz(priority);
+	//}
+	resz(data);
     }
 
     public String toString(){
@@ -182,34 +227,38 @@ public class MyDeque<T>{
 	return ret+"]";
     }
 
-    /* public void add(Object value,int pri){
-	priority = new int[deck.size];
-	
+    /*public void add(Object value,int pri){
+	priority = new int[data.length];
+	if (size==data.length){
+	    resize();
+	}
+	addLast(value);
+	priority[tail]=priority;
     }
 
     public T removeSmallest(){
 	if (priority!=null){
-	    int i=0;
+	    int j;
 	    if (size!=0){
-		ret = getFirst()+" "+getLast()+" "+"[ ";
+		//ret = getFirst()+" "+getLast()+" "+"[ ";
 		if (head<=tail){
 		    for (int i=head;i<=tail;i++){
-			ret+=data[i]+" ";
+			j=i;
 		    }
 		}else{
 		for (int i=head;i<data.length;i++){
 		    if (data[i]!=null){
-			ret+=data[i]+" ";
+			j=i;
 		    }
 		}
 		for (int i=0;i<=tail;i++){
 		    if (data[i]!=null){
-			ret+=data[i]+" ";
+			j=i;
 		    }
 		}
 		}
 	    }
-	    T ret = (T)priority[i];
+	    T ret = (T)priority[j];
 	} else {
 	    throw new NullPointerException();
 	}
