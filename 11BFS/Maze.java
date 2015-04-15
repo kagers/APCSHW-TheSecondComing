@@ -9,6 +9,7 @@ public class Maze{
     private int[] ohm;
     private Coordinate temp;
     private Frontier<Coordinate> deck;
+    private int[] salt;
 
     private static final String clear =  "\033[2J";
     private static final String hide =  "\033[?25l";
@@ -123,6 +124,15 @@ public class Maze{
 		    deck.add(new Coordinate(temp.getX(),temp.getY()+1,temp));
 		    deck.add(new Coordinate(temp.getX(),temp.getY()-1,temp));
 		} else if (maze[temp.getY()][temp.getX()]=='E'){
+		    salt = solutionCoordinates();
+		    for (int i=0;i<salt.length;i++){
+			//System.out.println(i+" "+salt.length);
+			maze[salt[i+1]][salt[i]]='.';
+			i++;
+		    }
+		    if (animate){
+			System.out.println(this);
+		    }
 		    return true;
 		} else if (maze[temp.getY()][temp.getX()]=='x' ||
 			   maze[temp.getY()][temp.getX()]=='#'){
@@ -167,26 +177,30 @@ public class Maze{
       *Postcondition:  the correct solution is in the returned array
       */
     public int[] solutionCoordinates(){
-	if (ohm == null){
-	    return new int[0];
+	if (salt == null){
+	    if (ohm == null){
+		return new int[0];
+	    }
+	    int size = 0;
+	    Coordinate temptemp = temp;
+	    while (temptemp!=null){
+		temptemp=temptemp.getNext();
+		size+=2;
+	    }
+	    int[] ret = new int[size];
+	    ohm = new int[size];
+	    for (int i=0; i<size; i++){
+		ret[i++]=temp.getY();
+		ret[i]=temp.getX();
+		temp=temp.getNext();
+	    }
+	    for (int i=0; i<size; i++){
+		ohm[i]=ret[size-1-i];
+	    }
+	    return ohm;
+	} else{
+	    return salt;
 	}
-	int size = 0;
-	Coordinate temptemp = temp;
-	while (temptemp!=null){
-	    temptemp=temptemp.getNext();
-	    size+=2;
-	}
-	int[] ret = new int[size];
-	ohm = new int[size];
-	for (int i=0; i<size; i++){
-	    ret[i++]=temp.getY();
-	    ret[i]=temp.getX();
-	    temp=temp.getNext();
-	}
-	for (int i=0; i<size; i++){
-	    ohm[i]=ret[size-1-i];
-	}
-	return ohm;
     }    
     
     public class Coordinate{

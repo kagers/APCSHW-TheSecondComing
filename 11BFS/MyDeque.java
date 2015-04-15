@@ -3,6 +3,7 @@ import java.util.*;
 public class MyDeque<T>{
 
     private Object[] data;
+    private int[] priority;
     private int head;
     private int tail;
     private int size;
@@ -180,6 +181,39 @@ public class MyDeque<T>{
 	}
 	return ret+"]";
     }
+
+    /* public void add(Object value,int pri){
+	priority = new int[deck.size];
+	
+    }
+
+    public T removeSmallest(){
+	if (priority!=null){
+	    int i=0;
+	    if (size!=0){
+		ret = getFirst()+" "+getLast()+" "+"[ ";
+		if (head<=tail){
+		    for (int i=head;i<=tail;i++){
+			ret+=data[i]+" ";
+		    }
+		}else{
+		for (int i=head;i<data.length;i++){
+		    if (data[i]!=null){
+			ret+=data[i]+" ";
+		    }
+		}
+		for (int i=0;i<=tail;i++){
+		    if (data[i]!=null){
+			ret+=data[i]+" ";
+		    }
+		}
+		}
+	    }
+	    T ret = (T)priority[i];
+	} else {
+	    throw new NullPointerException();
+	}
+	}*/
 
     public static void main(String[] args){
 	MyDeque<Integer> q = new MyDeque<Integer>();
