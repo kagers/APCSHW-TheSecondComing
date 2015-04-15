@@ -7,20 +7,12 @@ public class MyDeque<T>{
     private int head;
     private int tail;
     private int size;
-    private boolean priorityQueue;
     
-    public MyDeque(boolean pq){
-	data = new Object[10];
-	head=5;
-	tail=4;
-	size=0;
-	if (pq){
-	    priority = new int[10];
-	}
-    }
-
     public MyDeque(){
-	this(false);
+	data = new Object[10];
+	head=0;
+	tail=head;
+	size=0;
     }
 
     public String name(){
@@ -32,27 +24,51 @@ public class MyDeque<T>{
     }
 
     public void addFirst(T value){
-	if (size==data.length){
+	if (head>0 && head-1!=tail){
+	    data[head-1]=value;
+	    head--;
+	    size++;
+	} else if (head==0 && tail<data.length-1){
+	    data[data.length-1]=value;
+	    head=data.length-1;
+	    size++;
+	} else {
+	    //System.out.println('j');
 	    resize();
-	}	
-	head--;
-	if (head==-1){
-	    head = data.length-1;
+	    addFirst(value);
 	}
-	data[head] = value;
-	size++;
+	//System.out.println(Arrays.toString(data));
+	//adj();
+    }
+
+    public void adj(){
+	if (size==1){
+	    tail=head;
+	} 
+	if (data[tail]==null){
+	    if (tail-1<0){
+		tail=data.length-1;
+	    } else{
+		tail--;
+	    }
+	}
     }
 
     public void addLast(T value){
-	if (size==data.length){
+	if (tail<data.length-1 && tail+1!=head){
+	    data[tail+1]=value;
+	    tail++;
+	    size++;
+	} else if ((head==0 && tail==data.length-1)||(tail<data.length-1 && tail+1==head)){
 	    resize();
-	}	
-	tail--;
-	if (tail==data.length){
-	    head = 0;
+	    addLast(value);
+	} else{
+	    data[0]=value;
+	    tail=0;
+	    size++;
 	}
-	data[tail] = value;
-	size++;
+	//System.out.println(Arrays.toString(data));
+	//adj();
     }
 
     public T removeFirst(){
@@ -72,9 +88,18 @@ public class MyDeque<T>{
     }
 
     public T removeLast(){
+	//adj();
 	if (size==0){
 	    throw new NoSuchElementException();
 	}
+	/*if (data[tail]==null && size>0){
+	    System.out.println("KK"+data[tail]);
+	    if (tail-1<0){
+		tail=data.length-1;
+	    } else{
+		tail--;
+	    }
+	    }*/
 	T ret = getLast();
 	data[tail]=null;
 	tail--;
@@ -82,6 +107,8 @@ public class MyDeque<T>{
 	    tail=data.length-1;
 	}
 	size--;
+	//System.out.println(Arrays.toString(data));
+	//adj();
 	return ret;
     }
 
@@ -97,10 +124,13 @@ public class MyDeque<T>{
 	if (size==0){
 	    throw new NoSuchElementException();
 	}
-	if (size==1 && (T)data[tail]==null){
+	/*if (size==1 && (T)data[tail]==null){
 	    return getFirst();
+	}*/
+	if (tail==0){
+	    return (T)data[data.length-1];
 	}
-	return (T)data[tail];
+	return (T)data[tail-1];
     }
 
     private void resize(){
