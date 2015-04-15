@@ -133,32 +133,39 @@ public class MyDeque<T>{
 	return (T)data[tail-1];
     }
 
-    private void resize(){
-	Object[] ret = new Object[data.length*2];
+    private void resz(Object[] L){
+	Object[] ret = new Object[L.length*2];
 	if (tail>=head){
 	    int k=0;
 	    for (int i=head;i<=tail;i++){
-		ret[k]=data[i];
+		ret[k]=L[i];
 		k++;
 	    }
 	} else{
 	    int j=0;
-	    for (int i=head;i<data.length;i++){
-		if (data[i]!=null){
-		    ret[j]=data[i];
+	    for (int i=head;i<L.length;i++){
+		if (L[i]!=null){
+		    ret[j]=L[i];
 		    j++;
 		}
 	    }
 	    for (int i=0;i<=tail;i++){
-		if (data[i]!=null){
-		    ret[j]=data[i];
+		if (L[i]!=null){
+		    ret[j]=L[i];
 		    j++;
 		}
 	    }
 	}
 	head=0;
-	tail=data.length-2;
-	data=ret;
+	tail=L.length-2;
+	L=ret;
+    }
+
+    public void resize(){
+	if (priorityQueue){
+	    resz(priority);
+	}
+	resz(data);
     }
 
     public String toString(){
@@ -185,9 +192,13 @@ public class MyDeque<T>{
 	return ret+"]";
     }
 
-    /* public void add(Object value,int pri){
-	priority = new int[deck.size];
-	
+    public void add(Object value,int pri){
+	priority = new int[data.size];
+	if (size==data.length){
+	    resize();
+	}
+	addLast(value);
+	priority[tail]=priority;
     }
 
     public T removeSmallest(){
@@ -216,7 +227,7 @@ public class MyDeque<T>{
 	} else {
 	    throw new NullPointerException();
 	}
-	}*/
+    }
 
     public static void main(String[] args){
 	MyDeque<Integer> q = new MyDeque<Integer>();
