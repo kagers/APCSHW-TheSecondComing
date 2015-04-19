@@ -90,7 +90,7 @@ public class Maze{
 	//this to string will be used in your animate, it would include the go(0,0) character, 
 	//as well as the clear/hide/show characters as you need to use them.
 	if (animate){
-	    clearTerminal();
+	    //clearTerminal();
 	    return hide+go(0,0)+toString()+"\n"+show;
 	}
 	return toString();
@@ -108,6 +108,7 @@ public class Maze{
 	    }
 	}
         deck.add(start);
+	//System.out.println(deck);
 	while (deck.size()>0){
 	    if (animate){
 		System.out.println(toString(true));
@@ -115,6 +116,7 @@ public class Maze{
 	    }
 	    //wait(10);
 	    temp = deck.remove();
+	    //System.out.println(temp);
 	    try{
 		if (maze[temp.getY()][temp.getX()]==' ' ||
 		    maze[temp.getY()][temp.getX()]=='S'){
@@ -127,12 +129,13 @@ public class Maze{
 		    salt = solutionCoordinates();
 		    for (int i=0;i<salt.length;i++){
 			//System.out.println(i+" "+salt.length);
+			//System.out.println(deck);
 			maze[salt[i+1]][salt[i]]='.';
 			i++;
 		    }
-		    if (animate){
+		    //if (animate){
 			System.out.println(this);
-		    }
+			//}
 		    return true;
 		} else if (maze[temp.getY()][temp.getX()]=='x' ||
 			   maze[temp.getY()][temp.getX()]=='#'){
