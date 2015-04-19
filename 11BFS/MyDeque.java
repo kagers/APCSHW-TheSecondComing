@@ -33,7 +33,6 @@ public class MyDeque<T>{
     }
 
     public void addFirst(T value){
-	//System.out.println("J");
 	if (size==data.length){
 	    resize();
 	}	
@@ -43,8 +42,6 @@ public class MyDeque<T>{
 	}
 	data[head] = value;
 	size++;
-	System.out.println(Arrays.toString(data));
-	System.out.println(Arrays.toString(priority));
     }
 
     public void addLast(T value){
@@ -70,8 +67,6 @@ public class MyDeque<T>{
 	    head=0;
 	}
 	size--;
-	//System.out.println(Arrays.toString(data));
-	//adj();
 	return ret;
     }
 
@@ -97,7 +92,6 @@ public class MyDeque<T>{
     }
 
     public T getLast(){
-	//adj();
 	if (size==0){
 	    throw new NoSuchElementException();
 	}
@@ -110,6 +104,7 @@ public class MyDeque<T>{
     private void resize(){
 	Object[] ret = new Object[data.length*2];
 	int[] rett = new int[priority.length*2];
+	System.out.println(Arrays.toString(priority));
 	if (tail>=head){
 	    int k=0;
 	    for (int i=head;i<=tail;i++){
@@ -140,16 +135,19 @@ public class MyDeque<T>{
 		}
 	    }
 	}
+	System.out.println(Arrays.toString(rett));
 	head=0;
 	tail=data.length-1;
 	data=ret;
-	priority=rett;
+	if (pq){
+	    priority=rett;
+	}
     }
 
     public String toString(){
 	String ret = "[ ";
 	if (size!=0){
-	    ret = Arrays.toString(data)+"\n"+head+" "+tail+" "+getFirst()+" "+getLast()+" "+"[ ";
+	    //ret = Arrays.toString(data)+"\n"+head+" "+tail+" "+getFirst()+" "+getLast()+" "+"[ ";
 	    if (head<=tail){
 		for (int i=head;i<=tail;i++){
 		    if (data[i]!=null){
@@ -173,20 +171,16 @@ public class MyDeque<T>{
     }
 
     public void add(T value, int pr){
-	/*if (size == data.length){
-	    resize();
-	    }*/
-	//System.out.println("h");
 	System.out.println(Arrays.toString(data));
-	addFirst(value);
-	priority[head] = pr;	
+	addLast(value);
+	priority[tail]=pr;	
     }
 
     public T removeSmallest(){
-	if (size == 0){
+	if (size==0){
 	    throw new NoSuchElementException();
 	}
-	int index = head;
+	int index=head;
 	if (head<=tail){
 	    for (int i=head+1; i<=tail; i++){
 		if (priority[i]<priority[index]){
@@ -206,9 +200,14 @@ public class MyDeque<T>{
 	    }
 	}
 	Object ret=data[index];
+	System.out.println(Arrays.toString(priority));
 	priority[index]=priority[head];
+	System.out.println(Arrays.toString(priority));
 	priority[head]=0;
+	System.out.println(Arrays.toString(priority));
 	data[index]=removeFirst();
+	System.out.println(Arrays.toString(data));
+	System.out.println(Arrays.toString(priority));
 	return (T)ret;
     }
 
