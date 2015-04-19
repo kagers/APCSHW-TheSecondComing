@@ -8,7 +8,7 @@ public class Maze{
     private int startx,starty;
     private int[] ohm;
     private Coordinate temp;
-    private Frontier<Coordinate> deck;
+    private Frontier deck;
     private int[] salt;
 
     private static final String clear =  "\033[2J";
@@ -39,7 +39,7 @@ public class Maze{
 	    e.printStackTrace();
 	    System.exit(0);
 	}
-	temp = new Coordinate(0,0,null);
+	temp = new Coordinate(0,0,null,0);
 	maze = new char[maxx][maxy];
 	for(int i=0;i<ans.length();i++){
 	    char c = ans.charAt(i);
@@ -97,7 +97,7 @@ public class Maze{
     }
     
     public boolean solve(boolean animate){
-	Coordinate start = new Coordinate(0,0,null);
+	Coordinate start = new Coordinate(0,0,null,0);
 	ohm = new int[0];
 	for (int i=0; i<maze.length; i++){
 	    for (int j=0; j<maze[0].length; j++){
@@ -121,10 +121,10 @@ public class Maze{
 		if (maze[temp.getY()][temp.getX()]==' ' ||
 		    maze[temp.getY()][temp.getX()]=='S'){
 		    maze[temp.getY()][temp.getX()]='x';
-		    deck.add(new Coordinate(temp.getX()+1,temp.getY(),temp));
-		    deck.add(new Coordinate(temp.getX()-1,temp.getY(),temp));
-		    deck.add(new Coordinate(temp.getX(),temp.getY()+1,temp));
-		    deck.add(new Coordinate(temp.getX(),temp.getY()-1,temp));
+		    deck.add(new Coordinate(temp.getX()+1,temp.getY(),temp,temp.getSteps()+1));
+		    deck.add(new Coordinate(temp.getX()-1,temp.getY(),temp,temp.getSteps()+1));
+		    deck.add(new Coordinate(temp.getX(),temp.getY()+1,temp,temp.getSteps()+1));
+		    deck.add(new Coordinate(temp.getX(),temp.getY()-1,temp,temp.getSteps()+1));
 		} else if (maze[temp.getY()][temp.getX()]=='E'){
 		    salt = solutionCoordinates();
 		    for (int i=0;i<salt.length;i++){
@@ -148,12 +148,27 @@ public class Maze{
 	return false;
     }
 
+    public int[] findEnd(){
+	int[] ret = new int[2];
+	for (int i=0; i<maze.length; i++){
+	    for (int j=0; j<maze[0].length; j++){
+		if (maze[i][j]=='E'){
+		    ret[0]=j;
+		    ret[1]=i;
+		    return ret;
+		}
+	    }
+	}
+	return ret;
+    }
+
     /**Solve the maze using a frontier in a DFS manner. 
      * When animate is true, print the board at each step of the algorithm.
      * Replace spaces with x's as you traverse the maze. 
      */
     public boolean solveDFS(boolean animate){
-	deck = new Frontier<Coordinate>(true);
+	int[] end = findEnd();
+	deck = new Frontier(1,end[0],end[1]);
 	return solve(animate);
     }
 
@@ -162,15 +177,28 @@ public class Maze{
      * Replace spaces with x's as you traverse the maze. 
      */
     public boolean solveBFS(boolean animate){
-	deck = new Frontier<Coordinate>(false);
+	int[] end = findEnd();
+	deck = new Frontier(0,end[0],end[1]);
 	return solve(animate);
     }
     
+    /**Solve the maze using a frontier in a BestFirst manner. 
+     * When animate is true, print the board at each step of the algorithm.
+     * Replace spaces with x's as you traverse the maze. 
+     */
     public boolean solveBest(boolean animate){
+	int[] end = findEnd();
+	deck = new Frontier(3,end[0],end[1]);
 	return solve(animate);
     }
 
+    /**Solve the maze using a frontier in a AStar manner. 
+     * When animate is true, print the board at each step of the algorithm.
+     * Replace spaces with x's as you traverse the maze. 
+     */
     public boolean solveAStar(boolean animate){
+	int[] end = findEnd();
+	deck = new Frontier(4,end[0],end[1]);
 	return solve(animate);
     }
 
@@ -187,7 +215,7 @@ public class Maze{
     }
 
     public boolean solveAStar(){
-	return solveBest(false);
+	return solveAStar(false);
     }
 
     /**return an array [x1,y1,x2,y2,x3,y3...]
@@ -225,14 +253,14 @@ public class Maze{
     public class Coordinate{
 	private int x;
 	private int y;
+	private int steps;
 	private Coordinate next;
-
-	public Coordinate(int xx,int yy, Coordinate nextnext){
+	public Coordinate(int xx,int yy, Coordinate nextnext, int stepssteps){
 	    x=xx;
 	    y=yy;
+	    steps=stepssteps;
 	    next=nextnext;
 	}
-
 	public String toString(){
 	    return ("("+x+","+y+")")+" "+next;
 	}
@@ -241,6 +269,9 @@ public class Maze{
 	}
 	public void setY(int yy){
 	    y=yy;
+	}
+	public void setSteps(int stepssteps){
+	    steps=stepssteps;
 	}
 	public void setNext(Coordinate nextnext){
 	    next=nextnext;
@@ -251,28 +282,47 @@ public class Maze{
 	public int getY(){
 	    return y;
 	}
+	public int getSteps(){
+	    return steps;
+	}
 	public Coordinate getNext(){
 	    return next;
 	}
-
+	public int getDToEnd(int ex,int ey){
+	    return Math.abs(ex-x)+Math.abs(ey-y);
+	}
     }
 
-    public class Frontier<T>{
-	private MyDeque<T> dq = new MyDeque<T>();
-	private boolean stck;
+    public class Frontier{
+	private MyDeque<Coordinate> dq;
+	private int stck;
+	private int ex;
+	private int ey;
 
-	public Frontier(boolean stack){
+	public Frontier(int stack,int exex,int eyey){
 	    stck = stack;
+	    dq = new MyDeque<Coordinate>(stck>2);
+	    ex=exex;
+	    ey=eyey;
 	}
-	public void add(T value){
-	    dq.addFirst(value);
-	}
-	public T remove(){
-	    if (stck){
-		return dq.removeFirst();
-	    } else{
-		return dq.removeLast();
+	public void add(Coordinate value){
+	    if (stck<2){
+		dq.addFirst(value);
+	    } else if (stck==3){
+		dq.add(value,value.getDToEnd(ex,ey));
+	    } else if (stck==4){
+		dq.add(value,value.getDToEnd(ex,ey)+value.getSteps());
 	    }
+	}
+	public Coordinate remove(){
+	    if (stck==1){
+		return dq.removeFirst();
+	    } else if (stck==0){
+		return dq.removeLast();
+	    } else if (stck==3 || stck==4){
+		return dq.removeSmallest();
+	    }
+	    return null;
 	}
 	public int size(){
 	    return dq.size();
