@@ -33,6 +33,7 @@ public class MyDeque<T>{
     }
 
     public void addFirst(T value){
+	//System.out.println("J");
 	if (size==data.length){
 	    resize();
 	}	
@@ -42,6 +43,8 @@ public class MyDeque<T>{
 	}
 	data[head] = value;
 	size++;
+	System.out.println(Arrays.toString(data));
+	System.out.println(Arrays.toString(priority));
     }
 
     public void addLast(T value){
@@ -140,6 +143,7 @@ public class MyDeque<T>{
 	head=0;
 	tail=data.length-1;
 	data=ret;
+	priority=rett;
     }
 
     public String toString(){
@@ -169,9 +173,11 @@ public class MyDeque<T>{
     }
 
     public void add(T value, int pr){
-	/*if (size == deq.length){
+	/*if (size == data.length){
 	    resize();
 	    }*/
+	//System.out.println("h");
+	System.out.println(Arrays.toString(data));
 	addFirst(value);
 	priority[head] = pr;	
     }
