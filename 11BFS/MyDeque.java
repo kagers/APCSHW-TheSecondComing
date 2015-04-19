@@ -104,7 +104,6 @@ public class MyDeque<T>{
     private void resize(){
 	Object[] ret = new Object[data.length*2];
 	int[] rett = new int[priority.length*2];
-	System.out.println(Arrays.toString(priority));
 	if (tail>=head){
 	    int k=0;
 	    for (int i=head;i<=tail;i++){
@@ -135,7 +134,6 @@ public class MyDeque<T>{
 		}
 	    }
 	}
-	System.out.println(Arrays.toString(rett));
 	head=0;
 	tail=data.length-1;
 	data=ret;
@@ -171,7 +169,6 @@ public class MyDeque<T>{
     }
 
     public void add(T value, int pr){
-	System.out.println(Arrays.toString(data));
 	addLast(value);
 	priority[tail]=pr;	
     }
@@ -200,14 +197,9 @@ public class MyDeque<T>{
 	    }
 	}
 	Object ret=data[index];
-	System.out.println(Arrays.toString(priority));
 	priority[index]=priority[head];
-	System.out.println(Arrays.toString(priority));
 	priority[head]=0;
-	System.out.println(Arrays.toString(priority));
 	data[index]=removeFirst();
-	System.out.println(Arrays.toString(data));
-	System.out.println(Arrays.toString(priority));
 	return (T)ret;
     }
 
