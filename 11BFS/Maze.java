@@ -116,22 +116,17 @@ public class Maze{
 	    }
 	    //wait(10);
 	    temp = deck.remove();
-	    System.out.println(deck);
-	    System.out.println(temp);
-	    System.out.println(maze[temp.getY()][temp.getX()]);
+	    //System.out.println(deck);
+	    //System.out.println(temp);
+	    //System.out.println(maze[temp.getY()][temp.getX()]);
 	    try{
 		if (maze[temp.getY()][temp.getX()]==' ' ||
 		    maze[temp.getY()][temp.getX()]=='S'){
 		    maze[temp.getY()][temp.getX()]='x';
-		    System.out.println("hh");
 		    deck.add(new Coordinate(temp.getX()+1,temp.getY(),temp,temp.getSteps()+1));
-		    System.out.println(deck);
 		    deck.add(new Coordinate(temp.getX()-1,temp.getY(),temp,temp.getSteps()+1));
-		    System.out.println(deck);
 		    deck.add(new Coordinate(temp.getX(),temp.getY()+1,temp,temp.getSteps()+1));
-		    System.out.println(deck);
 		    deck.add(new Coordinate(temp.getX(),temp.getY()-1,temp,temp.getSteps()+1));
-		    System.out.println(deck);
 		} else if (maze[temp.getY()][temp.getX()]=='E'){
 		    salt = solutionCoordinates();
 		    for (int i=0;i<salt.length;i++){
@@ -269,7 +264,7 @@ public class Maze{
 	    next=nextnext;
 	}
 	public String toString(){
-	    return ("("+x+","+y+")")+" ";//+next;
+	    return ("("+x+","+y+")")+" ";
 	}
 	public void setX(int xx){
 	    x=xx;
@@ -318,6 +313,7 @@ public class Maze{
 	    } else if (stck==3){
 		dq.add(value,value.getDToEnd(ex,ey));
 	    } else if (stck==4){
+		//System.out.println(value.getDToEnd(ex,ey)+value.getSteps());
 		dq.add(value,value.getDToEnd(ex,ey)+value.getSteps());
 	    }
 	}
