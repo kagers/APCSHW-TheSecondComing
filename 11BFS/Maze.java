@@ -90,7 +90,7 @@ public class Maze{
 	//this to string will be used in your animate, it would include the go(0,0) character, 
 	//as well as the clear/hide/show characters as you need to use them.
 	if (animate){
-	    //clearTerminal();
+	    clearTerminal();
 	    return hide+go(0,0)+toString()+"\n"+show;
 	}
 	return toString();
@@ -108,17 +108,12 @@ public class Maze{
 	    }
 	}
         deck.add(start);
-	//System.out.println(deck);
 	while (deck.size()>0){
 	    if (animate){
 		System.out.println(toString(true));
 		wait(50);
 	    }
-	    //wait(10);
 	    temp = deck.remove();
-	    //System.out.println(deck);
-	    //System.out.println(temp);
-	    //System.out.println(maze[temp.getY()][temp.getX()]);
 	    try{
 		if (maze[temp.getY()][temp.getX()]==' ' ||
 		    maze[temp.getY()][temp.getX()]=='S'){
@@ -130,14 +125,12 @@ public class Maze{
 		} else if (maze[temp.getY()][temp.getX()]=='E'){
 		    salt = solutionCoordinates();
 		    for (int i=0;i<salt.length;i++){
-			//System.out.println(i+" "+salt.length);
-			//System.out.println(deck);
 			maze[salt[i+1]][salt[i]]='.';
 			i++;
 		    }
-		    //if (animate){
+		    if (animate){
 			System.out.println(this);
-			//}
+		    }
 		    return true;
 		} else if (maze[temp.getY()][temp.getX()]=='x' ||
 			   maze[temp.getY()][temp.getX()]=='#'){
@@ -313,7 +306,6 @@ public class Maze{
 	    } else if (stck==3){
 		dq.add(value,value.getDToEnd(ex,ey));
 	    } else if (stck==4){
-		//System.out.println(value.getDToEnd(ex,ey)+value.getSteps());
 		dq.add(value,value.getDToEnd(ex,ey)+value.getSteps());
 	    }
 	}
