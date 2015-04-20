@@ -103,7 +103,7 @@ public class MyDeque<T>{
 
     private void resize(){
 	Object[] ret = new Object[data.length*2];
-	int[] rett = new int[priority.length*2];
+	int[] rett = new int[data.length*2];
 	if (tail>=head){
 	    int k=0;
 	    for (int i=head;i<=tail;i++){

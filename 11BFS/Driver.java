@@ -12,14 +12,13 @@ public class Driver{
 	f.clearTerminal();
 	if (args.length > 1){
 	    if (args[1].equals("0")){
-		System.out.println("r");
-	        f.solveDFS(true);
+	        f.solveDFS();
 	    } else if (args[1].equals("1")){
-	        f.solveBFS(true);
+	        f.solveBFS();
 	    } else if (args[1].equals("2")){
-		f.solveDFS(false);
+		f.solveBest();
 	    } else{
-		f.solveBFS(false);
+		f.solveAStar();
 	    }
 	}
 	System.out.println(Arrays.toString(f.solutionCoordinates()));
