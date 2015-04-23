@@ -2,29 +2,44 @@ public class TreeNode<T>{
     
     private T species;
     private TreeNode<T> leaft;
-    private TreeNode<T> rye-t;
-    private TreeNode<T> chai-ld
+    private TreeNode<T> ryet;
 
     public TreeNode(){
-	species=null;
-	leaft=null;
-	rye-t=null;
+	this(null,null,null);
+    }
+    
+    public TreeNode(T s){
+	this(s,null,null);
+    }
+
+    public TreeNode(T s, TreeNode<T> l, TreeNode<T> r){
+	species=s;
+	leaft=l;
+	ryet=r;
     }
 
     public T getValue(){
 	return species;
     }
 
-    public T getLeft(){
-
+    public void setValue(T lf){
+	species = lf;
     }
 
-    public T getRight(){
-
+    public TreeNode<T> getLeft(){
+	return leaft;
     }
 
-    public T getChild(){
+    public void setLeft(TreeNode<T> lf){
+	leaft = lf;
+    }
 
+    public TreeNode<T> getRight(){
+	return ryet;
+    }
+    
+    public void setRight(TreeNode<T> lf){
+	ryet = lf;
     }
 
 }

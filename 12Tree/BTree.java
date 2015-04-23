@@ -42,7 +42,7 @@ public class BTree<T>{
 	
     }
 
-    public String getLevel(){
+    private String getLevel(){
 
     }
 
