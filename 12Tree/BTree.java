@@ -11,19 +11,34 @@ public class BTree<T>{
     }
 
     public void add(T d){
-
+	add(root,new TreeNode<T>(d));
     }
 
     private void add(TreeNode<T> curr, TreeNode<T> bn){
+	if (curr == null){
+	    curr = bn;
+	} else {
+	    Random r = new Random(24);
+	    if (r.nextInt(1)==0){
+		
+	    } else {
 
+	    }
+	}
     }
 
     public void traverse(int mode){
-
+	if (mode==PRE_ORDER){
+	    preOrder();
+	} else if (mode==IN_ORDER){
+	    inOrder();
+	} else if (mode==POST_ORDER){
+	    postOrder();
+	}
     }
 
     public void preOrder(TreeNode<T> curr){
-
+	
     }
 
     public void inOrder(TreeNode<T> curr){
@@ -35,10 +50,10 @@ public class BTree<T>{
     }
 
     public int getHeight(){
-	
+	return getHeight(root);
     }
 
-    public int getHeight(){
+    private int getHeight(TreeNode<T> curr){
 	
     }
 
@@ -47,6 +62,18 @@ public class BTree<T>{
     }
 
     public String toString(){
+
+    }
+
+    public static void main(String[] args){
+	
+	BTree<Integer> t = new BTree<Integer>();
+
+	for (int i=0; i<8; i++){
+	    t.add(i);
+	}
+	System,out.println("Pre-order : ");
+	t.traverse(PRE_ORDER);
 
     }
 
