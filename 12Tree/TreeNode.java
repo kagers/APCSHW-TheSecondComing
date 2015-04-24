@@ -18,7 +18,7 @@ public class TreeNode<T>{
 	ryet=r;
     }
 
-    public T getValue(){
+    public T getData(){
 	return species;
     }
 

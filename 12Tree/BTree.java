@@ -1,10 +1,12 @@
+import java.util.*;
+
 public class BTree<T>{
 
     public static final int PRE_ORDER = 0;
     public static final int IN_ORDER = 1;
     public static final int POST_ORDER = 2;
 
-    private TreeNode<E> root;
+    private TreeNode<T> root;
 
     public BTree(){
 	root = null;
@@ -20,36 +22,48 @@ public class BTree<T>{
 	} else {
 	    Random r = new Random(24);
 	    if (r.nextInt(1)==0){
-		
+		add(curr.getLeft(),bn);
 	    } else {
-
+		add(curr.getRight(),bn);
 	    }
 	}
     }
 
     public void traverse(int mode){
 	if (mode==PRE_ORDER){
-	    preOrder();
+	    preOrder(root);
 	} else if (mode==IN_ORDER){
-	    inOrder();
+	    inOrder(root);
 	} else if (mode==POST_ORDER){
-	    postOrder();
+	    postOrder(root);
 	}
     }
 
     public void preOrder(TreeNode<T> curr){
-	
+	if (curr!=null){
+	    System.out.println(curr.getData());
+	    preOrder(curr.getLeft());
+	    preOrder(curr.getRight());
+	}
     }
 
     public void inOrder(TreeNode<T> curr){
-
+	if (curr!=null){
+	    inOrder(curr.getLeft());
+	    System.out.println(curr.getData());
+	    inOrder(curr.getRight());
+	}
     }
 
     public void postOrder(TreeNode<T> curr){
-	
+	if (curr!=null){
+	    postOrder(curr.getLeft());
+	    postOrder(curr.getRight());
+	    System.out.println(curr.getData());
+	}
     }
 
-    public int getHeight(){
+    /*public int getHeight(){
 	return getHeight(root);
     }
 
@@ -64,15 +78,15 @@ public class BTree<T>{
     public String toString(){
 
     }
-
+    */
     public static void main(String[] args){
 	
 	BTree<Integer> t = new BTree<Integer>();
 
-	for (int i=0; i<8; i++){
+	for (int i=0; i<6; i++){
 	    t.add(i);
 	}
-	System,out.println("Pre-order : ");
+	System.out.println("Pre-order : ");
 	t.traverse(PRE_ORDER);
 
     }
