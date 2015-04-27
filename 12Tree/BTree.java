@@ -11,7 +11,7 @@ public class BTree<T>{
 
     public BTree(){
 	root = null;
-	arbre = new Random(11);
+	arbre = new Random();
     }
 
     public void add(T d){
@@ -92,19 +92,30 @@ public class BTree<T>{
 	} 
     }
 
-    /*private String getLevel(){
-
+    private String getLevel(TreeNode<T> curr, int level){
+	if (curr==null){
+	    return "";
+	} else if (level==0){
+	    return curr.getData()+"";
+	} else{
+	    return getLevel(curr.getLeft(),level-1)+
+		getLevel(curr.getRight(),level-1);
+	}
     }
 
     public String toString(){
-
+	String ret = "";
+	for (int i=0; i<getHeight(); i++){
+	    ret+=getLevel(root,i)+"\n";
+	}
+	return ret;
     }
-    */
+
     public static void main(String[] args){
 	
 	BTree<Integer> t = new BTree<Integer>();
 
-	for (int i=0; i<8; i++){
+	for (int i=0; i<7; i++){
 	    t.add(i);
 	}
 	System.out.println("Pre-order : ");
