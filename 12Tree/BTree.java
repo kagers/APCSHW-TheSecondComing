@@ -11,7 +11,7 @@ public class BTree<T>{
 
     public BTree(){
 	root = null;
-	arbre = new Random(24);
+	arbre = new Random(11);
     }
 
     public void add(T d){
@@ -30,7 +30,7 @@ public class BTree<T>{
 	} else if (curr.getRight()==null){
 	    curr.setRight(bn);
 	} else {
-	    if (arbre.nextInt(1)==0){
+	    if (arbre.nextInt(2)==0){
 		add(curr.getLeft(),bn);
 	    } else {
 		add(curr.getRight(),bn);
@@ -104,7 +104,7 @@ public class BTree<T>{
 	
 	BTree<Integer> t = new BTree<Integer>();
 
-	for (int i=0; i<6; i++){
+	for (int i=0; i<8; i++){
 	    t.add(i);
 	}
 	System.out.println("Pre-order : ");
