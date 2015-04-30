@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class BSTree<T implements Comparable>{
+public class BSTree<T extends Comparable>{
 
     private BSTreeNode<T> root;
 
@@ -22,7 +22,17 @@ public class BSTree<T implements Comparable>{
     }
 
     private BSTreeNode<T> add(BSTreeNode<T> curr, BSTreeNode<T> t){
-	return null;
+	if (curr==null){
+	    curr = t;
+	    return t;
+	} else if (curr.compareTo(t)>0){
+	    curr.setRight(add(curr.getRight(),t));
+	    return curr;
+	} else if (curr.compareTo(t)<0){
+	    
+	} else {
+
+	}
     }
 
 }
