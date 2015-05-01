@@ -22,7 +22,7 @@ public class TreeNode<T>{
 	return species;
     }
 
-    public void setValue(T lf){
+    public void setData(T lf){
 	species = lf;
     }
 

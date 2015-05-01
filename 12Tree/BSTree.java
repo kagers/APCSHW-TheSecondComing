@@ -35,4 +35,30 @@ public class BSTree<T extends Comparable>{
 	}
     }
 
+    public void remove(T c){
+
+    }
+
+    private BSTreeNode<T> remove(BSTreeNode<T> curr, T c){
+
+    }
+
+    public void inOrder(){
+	inOrderHelper(root);
+	System.out.println();
+    }
+
+    public void inOrderHelper(BSTreeNode<T> t){
+	if (t==null){
+	    return
+	}
+	inOrderHelper(t.getLeft());
+	System.out.print(t.getData()+" ");
+	inOrderHelper(t.getRight());
+    }
+
+    public static void main(String[] args){
+
+    }
+
 }
