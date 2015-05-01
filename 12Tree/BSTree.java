@@ -37,11 +37,17 @@ public class BSTree<T extends Comparable>{
     }
 
     public void remove(T c){
-	remove(root,new BSTreeNode<T>(c));
+	remove(root,c);
     }
 
     private BSTreeNode<T> remove(BSTreeNode<T> curr, T c){
-	return null;
+	if (curr.getLeft().equals(c)){
+	    if (isLeaf(curr.getLeft())){
+
+	    }
+	} else{
+	    return null;
+	}
     }
 
     public void inOrder(){
@@ -83,7 +89,7 @@ public class BSTree<T extends Comparable>{
 	    return curr.getData()+" ";
 	} else{
 	    return getLevel(curr.getLeft(),level-1)+
-		getLevel(curr.getRight(),level-1);
+		   getLevel(curr.getRight(),level-1);
 	}
     }
 
