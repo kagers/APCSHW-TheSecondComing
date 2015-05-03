@@ -20,7 +20,10 @@ public class BSTreeNode<T extends Comparable>{
 	return data;
     }
     public void setData(T lf){
+	System.out.println("j"+this);
+	System.out.println(lf);
 	data = lf;
+	System.out.println("k"+this);
     }
 
     public BSTreeNode<T> getLeft(){
@@ -35,6 +38,12 @@ public class BSTreeNode<T extends Comparable>{
     }
     public void setRight(BSTreeNode<T> lf){
 	right = lf;
+    }
+
+    public static void main(String[] args){
+	BSTreeNode<Integer> t = new BSTreeNode<Integer>(5);
+	t.setData(6);
+	System.out.println(t);
     }
 
 }
