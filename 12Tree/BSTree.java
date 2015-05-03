@@ -52,32 +52,7 @@ public class BSTree<T extends Comparable>{
 	    } else{
 
 	    }
-	}
-	//System.out.println(curr.getRight());
-	//System.out.println(curr);
-	/*if (curr.getRight()!=null && curr.getRight().getData().equals(c)){
-	    BSTreeNode<T> cr=curr.getRight();
-	    if (isLeaf(cr)){
-		curr.setRight(null);
-	    } else if (cr.getLeft()==null && cr.getRight()!=null){
-		curr.setRight(cr.getRight());
-	    } else if (cr.getRight()==null && cr.getLeft()!=null){
-		curr.setRight(cr.getLeft());
-	    } else{
-	       
-	    }
-	    return curr;
-	} if (curr.getLeft()!=null && curr.getLeft().getData().equals(c)){
-	    BSTreeNode<T> cr=curr.getLeft();
-	    if (isLeaf(cr)){
-		curr.setLeft(null);
-	    } else if (cr.getLeft()==null && cr.getRight()!=null){
-		curr.setLeft(cr.getRight());
-	    } else if (cr.getRight()==null && cr.getLeft()!=null){
-		curr.setLeft(cr.getLeft());
-	    }
-	    return curr;
-	}*/ else{
+	} else{
 	    //System.out.println("l");
 	    if (c.compareTo(curr.getData())<0){
 		curr.setLeft(remove(curr.getLeft(),c));
