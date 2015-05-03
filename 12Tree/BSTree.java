@@ -24,16 +24,14 @@ public class BSTree<T extends Comparable>{
     private BSTreeNode<T> add(BSTreeNode<T> curr, BSTreeNode<T> t){
 	if (curr==null){
 	    curr = t;
-	    return curr;
 	} else if (curr.compareTo(t)<0){
 	    curr.setRight(add(curr.getRight(),t));
-	    return curr;
 	} else if (curr.compareTo(t)>0){
 	    curr.setLeft(add(curr.getLeft(),t));
-	    return curr;
 	} else{
 	    return null;
 	}
+	return curr;
     }
 
     public void remove(T c){
@@ -44,9 +42,20 @@ public class BSTree<T extends Comparable>{
 	if (curr==null){
 	    return curr;
 	}
+	if (curr.getData().equals(c)){
+	    if (isLeaf(curr)){
+		return null;
+	    } else if (curr.getLeft()!=null && curr.getRight()==null){
+		return curr.getLeft();
+	    } else if (curr.getLeft()==null && curr.getRight()!=null){
+		return curr.getRight();
+	    } else{
+
+	    }
+	}
 	//System.out.println(curr.getRight());
 	//System.out.println(curr);
-	if (curr.getRight()!=null && curr.getRight().getData().equals(c)){
+	/*if (curr.getRight()!=null && curr.getRight().getData().equals(c)){
 	    BSTreeNode<T> cr=curr.getRight();
 	    if (isLeaf(cr)){
 		curr.setRight(null);
@@ -54,6 +63,8 @@ public class BSTree<T extends Comparable>{
 		curr.setRight(cr.getRight());
 	    } else if (cr.getRight()==null && cr.getLeft()!=null){
 		curr.setRight(cr.getLeft());
+	    } else{
+	       
 	    }
 	    return curr;
 	} if (curr.getLeft()!=null && curr.getLeft().getData().equals(c)){
@@ -66,15 +77,15 @@ public class BSTree<T extends Comparable>{
 		curr.setLeft(cr.getLeft());
 	    }
 	    return curr;
-	} else{
+	}*/ else{
 	    //System.out.println("l");
 	    if (c.compareTo(curr.getData())<0){
-		remove(curr.getLeft(),c);
+		curr.setLeft(remove(curr.getLeft(),c));
 	    } else{
-		remove(curr.getRight(),c);
+		curr.setRight(remove(curr.getRight(),c));
 	    }
-	    return curr;
 	}
+	return curr;
     }
 
     public void inOrder(){
@@ -203,10 +214,10 @@ public class BSTree<T extends Comparable>{
 	t.inOrder();
 	System.out.println(t);
 	System.out.println();
-	t.remove(0);
+	t.remove(3);
 	System.out.println(t);
 	System.out.println();
-	t.remove(7);
+	t.remove(10);
 	System.out.println(t);
 	/*t.remove(3);
 	System.out.println(t);
