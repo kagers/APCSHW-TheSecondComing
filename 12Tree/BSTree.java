@@ -3,9 +3,11 @@ import java.util.*;
 
 public class BSTree<T extends Comparable>{
 
+    private Random ayn;
     private BSTreeNode<T> root;
 
     public BSTree(){
+	ayn = new Random();
 	root = null;
     }
 
@@ -51,9 +53,15 @@ public class BSTree<T extends Comparable>{
 	    } else if (curr.getLeft()==null && curr.getRight()!=null){
 		return curr.getRight();
 	    } else{
-		T end = getMin(curr);
-		curr.setData(end);
-		curr.setLeft(remove(curr.getLeft(),end));
+		if (ayn.nextInt(2)==0){
+		    T end = getMin(curr);
+		    curr.setData(end);
+		    curr.setLeft(remove(curr.getLeft(),end));
+		} else{
+		    T end = getMax(curr);
+		    curr.setData(end);
+		    curr.setRight(remove(curr.getRight(),end));
+		}
 		return curr;
 	    }
 	} else{
