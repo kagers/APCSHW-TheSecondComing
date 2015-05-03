@@ -50,17 +50,34 @@ public class BSTree<T extends Comparable>{
 	    } else if (curr.getLeft()==null && curr.getRight()!=null){
 		return curr.getRight();
 	    } else{
-
+		
 	    }
 	} else{
-	    //System.out.println("l");
 	    if (c.compareTo(curr.getData())<0){
 		curr.setLeft(remove(curr.getLeft(),c));
 	    } else{
 		curr.setRight(remove(curr.getRight(),c));
 	    }
+	    return curr;
 	}
-	return curr;
+    }
+
+    public T getMin(BSTreeNode<T> curr){
+	if (curr!=null && curr.getLeft()==null){
+	    return curr.getData();
+	} else if (curr!=null){
+	    getMin(curr.getLeft());
+	}
+	return null;
+    }
+
+    private T getMax(BSTreeNode<T> curr){
+	if (curr!=null && curr.getRight()==null){
+	    return curr.getData();
+	} else if (curr!=null){
+	    getMax(curr.getRight());
+	}
+	return null;
     }
 
     public void inOrder(){
