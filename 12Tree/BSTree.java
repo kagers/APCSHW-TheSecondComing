@@ -7,7 +7,7 @@ public class BSTree<T extends Comparable>{
     private BSTreeNode<T> root;
 
     public BSTree(){
-	ayn = new Random();
+	ayn = new Random(1);
 	root = null;
     }
 
@@ -44,7 +44,6 @@ public class BSTree<T extends Comparable>{
 	if (curr==null){
 	    return curr;
 	}
-	//System.out.println(curr);
 	if (curr.getData().equals(c)){
 	    if (isLeaf(curr)){
 		return null;
@@ -54,13 +53,13 @@ public class BSTree<T extends Comparable>{
 		return curr.getRight();
 	    } else{
 		if (ayn.nextInt(2)==0){
-		    T end = getMin(curr);
-		    curr.setData(end);
-		    curr.setLeft(remove(curr.getLeft(),end));
-		} else{
-		    T end = getMax(curr);
+		    T end = getMin(curr.getRight());
 		    curr.setData(end);
 		    curr.setRight(remove(curr.getRight(),end));
+		} else{
+		    T end = getMax(curr.getLeft());
+		    curr.setData(end);
+		    curr.setLeft(remove(curr.getLeft(),end));
 		}
 		return curr;
 	    }
@@ -74,21 +73,21 @@ public class BSTree<T extends Comparable>{
 	}
     }
 
-    public T getMin(BSTreeNode<T> curr){
-	if (curr!=null && curr.getLeft()==null){
+    private T getMax(BSTreeNode<T> curr){
+	if (curr!=null && curr.getRight()==null){
 	    return curr.getData();
-	} else if (curr!=null && curr.getLeft()!=null){
-	    T min = getMin(curr.getLeft());
+	} else if (curr!=null && curr.getRight()!=null){
+	    T min = getMax(curr.getRight());
 	    return min;
 	}
 	return null;
     }
 
-    private T getMax(BSTreeNode<T> curr){
-	if (curr!=null && curr.getRight()==null){
+    private T getMin(BSTreeNode<T> curr){
+	if (curr!=null && curr.getLeft()==null){
 	    return curr.getData();
-	} else if (curr!=null && curr.getRight()!=null){
-	    T max = getMax(curr.getRight());
+	} else if (curr!=null && curr.getLeft()!=null){
+	    T max = getMin(curr.getLeft());
 	    return max;
 	}
 	return null;
@@ -218,6 +217,18 @@ public class BSTree<T extends Comparable>{
 	t.inOrder();
 	t.add(7);
 	t.inOrder();
+	t.add(1);
+	t.inOrder();
+	t.add(9);
+	t.inOrder();
+	t.add(2);
+	t.inOrder();
+	t.add(8);
+	t.inOrder();
+	t.add(4);
+	t.inOrder();
+	t.add(6);
+	t.inOrder();
 	System.out.println(t);
 	System.out.println();
 	t.remove(5);
@@ -225,9 +236,9 @@ public class BSTree<T extends Comparable>{
 	System.out.println();
 	t.remove(10);
 	System.out.println(t);
-	/*t.remove(3);
+	t.remove(3);
 	System.out.println(t);
 	System.out.println();
-	*/}
+    }
 
 }
