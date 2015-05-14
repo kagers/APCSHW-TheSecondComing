@@ -45,22 +45,40 @@ public class MyHeap{
     }
 
     public int remove(){
-	if (hepa[0]>0){
-	    int ret = hepa[1];
-	    hepa[1] = hepa[hepa[0]];
-	    hepa[0]--;
-	    int i = 0;
-	    while (i>4){
-
-	    }
-	    return ret;
-	} else {
+	if (hepa[0]<=0){
 	    throw new NoSuchElementException();
 	}
+	int ret = hepa[1];
+	hepa[1] = hepa[hepa[0]];
+	hepa[0]--;
+	int i = 0;
+	while (getLeft(i)<=hepa[0]){
+	    int left = getLeft(i);
+	    int right = getRight(i);
+	    if (right<=hepa[0]){
+		if (hepa[i]<hepa[left] || hepa[i]<hepa[right]){
+		    if (hepa[left]>hepa[right]){
+			swap(i,left);
+			i = left;
+		    } else if (hepa[left]<hepa[right]){
+			swap(i,right);
+			i = right;
+		    }
+		} else{
+		    return ret;
+		} 
+	    } else if (hepa[i]<hepa[left]){
+		swap(i,left);
+		i = left;
+	    } else{
+		return ret;
+	    }
+	}
+	return ret;
     }
 
     public void add(int value){
-
+	    
     }
 
     private void resize(){
