@@ -15,7 +15,15 @@ public class MyHeap{
     }
 
     public String toString(){
-	return "";
+	String ret = "[";
+	if (hepa[0]>0){
+	    int i;
+	    for (i=1; i<hepa[0]; i++){
+		ret+=" "+hepa[i];
+	    }
+	    ret+=" "+hepa[i];
+	}	
+	return ret+" ]";
     }
 
     private int getParent(int i){
@@ -42,14 +50,16 @@ public class MyHeap{
 	    hepa[1] = hepa[hepa[0]];
 	    hepa[0]--;
 	    int i = 0;
-	    while (
+	    while (i>4){
+
+	    }
 	    return ret;
 	} else {
 	    throw new NoSuchElementException();
 	}
     }
 
-    public void add(int ){
+    public void add(int value){
 
     }
 
