@@ -44,58 +44,60 @@ public class MyHeap{
 	hepa[k] = temp;
     }
 
-    public int remove(){
-	if (hepa[0]<=0){
-	    throw new NoSuchElementException();
+    public void add(int n){
+	if (hepa[0] == hepa.length-1){
+	    resize();
 	}
-	int ret = hepa[1];
-	hepa[1]=hepa[hepa[0]];
-	int index = 1;
-	hepa[hepa[0]]=0;
-	hepa[0]=hepa[0]-1;
-	remove(1);
-	return ret;
+	int size = hepa[0]+1;
+	hepa[size] = n;
+	hepa[0] = size;
+	int i = size;
+	while (getParent(i) > 0){
+	    int p = getParent(i);
+	    if (hepa[i] > hepa[p]){
+		swap(i,p);
+	    }
+	    i = p;
+	}
     }
 
-    public int remove(int i){
-	if(peek()!=0 && i<hepa[0]){
-	    int left = getLeft(i);
-	    int right = getRight(i);
-	    int dif = 0;
-	    int d = -1;
-	    boolean s = false;
-	    if (left<=hepa[0]){
-		dif = hepa[i]-hepa[left];
-		d = 0;
-	    } else if (right<=hepa[0]){
-		dif = hepa[i]-hepa[right];
-		d = 1;
-	    }
-	    if (max){
-	        s = dif<0;
-	    } else{
-		s = dif>0;
-	    }
-	    int temp = hepa[i];
-	    if (s){
-		if (d == 0){
-		    hepa[i]=hepa[left];
-		    hepa[left]=temp;
-		    remove(left); 
-		} else if (d == 1){
-		    hepa[i]=hepa[right];
-		    hepa[right]=temp;
-		    remove(right);
+    public int remove(){
+	int size = hepa[0];
+	if (size==0){
+	    throw new NoSuchElementException();
+	}else{
+	    int ret=hepa[1];
+	    hepa[1]=hepa[size];
+	    hepa[0] = --size; 
+	    int i = 1;
+	    while (getLeft(i) <= size){
+		int l = getLeft(i);
+		int r = getRight(i);
+	        if (r <= size){ 
+		    if (hepa[i] < hepa[l] || hepa[i] < hepa[r]){
+			int dif = hepa[l]-hepa[r];
+			if (dif > 0){
+			    swap(i,l);
+			    i = l;
+			} else if (dif < 0){
+			    swap(i, r);
+			    i = r;
+			}
+		    }else{
+			return ret;
+		    }
+		}else if (hepa[i] < hepa[l]){
+		    swap(i,l);
+		    i = l;
+		}else{
+		    return ret;
 		}
 	    }
+	    return ret;
 	}
-	return 0;
+	
     }
-
-    public void add(int value){
-	    
-    }
-
+    
     private void resize(){
 	hepa = Arrays.copyOf(hepa,hepa[0]*2);
     }
@@ -108,7 +110,18 @@ public class MyHeap{
     }
 
     public static void main(String[] args){
-	MyHeap hehe = new MyHeap();
+	MyHeap hehe = new MyHeap(false);
+	System.out.println(hehe);
+	hehe.add(3);
+	hehe.add(1);
+	hehe.add(5);
+	hehe.add(4);
+	hehe.add(7);
+	hehe.add(9);
+	hehe.add(10);
+	System.out.println(hehe);
+	System.out.println(hehe.remove());
+	System.out.println(hehe);
     }
 
 }
