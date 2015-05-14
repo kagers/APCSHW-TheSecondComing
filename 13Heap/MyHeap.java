@@ -54,7 +54,13 @@ public class MyHeap{
 	int i = size;
 	while (getParent(i) > 0){
 	    int p = getParent(i);
-	    if (hepa[i] > hepa[p]){
+	    boolean m = false;
+	    if (max){
+		m = hepa[i]>hepa[p];
+	    } else{
+		m = hepa[i]<hepa[p];
+	    }
+	    if (m){
 		swap(i,p);
 	    }
 	    i = p;
@@ -63,6 +69,7 @@ public class MyHeap{
 
     public int remove(){
 	int size = hepa[0];
+	boolean m = false;
 	if (size==0){
 	    throw new NoSuchElementException();
 	}else{
@@ -73,9 +80,17 @@ public class MyHeap{
 	    while (getLeft(i) <= size){
 		int l = getLeft(i);
 		int r = getRight(i);
-	        if (r <= size){ 
-		    if (hepa[i] < hepa[l] || hepa[i] < hepa[r]){
+	        if (r <= size){
+		    if (max){
+			m = hepa[i] < hepa[l] || hepa[i] < hepa[r];
+		    } else{
+			m = hepa[i] > hepa[l] || hepa[i] > hepa[r];
+		    }
+		    if (m){
 			int dif = hepa[l]-hepa[r];
+			if (!max){
+			    dif*=-1;
+			}
 			if (dif > 0){
 			    swap(i,l);
 			    i = l;
@@ -119,6 +134,8 @@ public class MyHeap{
 	hehe.add(7);
 	hehe.add(9);
 	hehe.add(10);
+	System.out.println(hehe);
+	System.out.println(hehe.remove());
 	System.out.println(hehe);
 	System.out.println(hehe.remove());
 	System.out.println(hehe);
