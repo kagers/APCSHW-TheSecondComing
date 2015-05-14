@@ -49,32 +49,47 @@ public class MyHeap{
 	    throw new NoSuchElementException();
 	}
 	int ret = hepa[1];
-	hepa[1] = hepa[hepa[0]];
-	hepa[0]--;
-	int i = 0;
-	while (getLeft(i)<=hepa[0]){
+	hepa[1]=hepa[hepa[0]];
+	int index = 1;
+	hepa[hepa[0]]=0;
+	hepa[0]=hepa[0]-1;
+	remove(1);
+	return ret;
+    }
+
+    public int remove(int i){
+	if(peek()!=0 && i<hepa[0]){
 	    int left = getLeft(i);
 	    int right = getRight(i);
-	    if (right<=hepa[0]){
-		if (hepa[i]<hepa[left] || hepa[i]<hepa[right]){
-		    if (hepa[left]>hepa[right]){
-			swap(i,left);
-			i = left;
-		    } else if (hepa[left]<hepa[right]){
-			swap(i,right);
-			i = right;
-		    }
-		} else{
-		    return ret;
-		} 
-	    } else if (hepa[i]<hepa[left]){
-		swap(i,left);
-		i = left;
+	    int dif = 0;
+	    int d = -1;
+	    boolean s = false;
+	    if (left<=hepa[0]){
+		dif = hepa[i]-hepa[left];
+		d = 0;
+	    } else if (right<=hepa[0]){
+		dif = hepa[i]-hepa[right];
+		d = 1;
+	    }
+	    if (max){
+	        s = dif<0;
 	    } else{
-		return ret;
+		s = dif>0;
+	    }
+	    int temp = hepa[i];
+	    if (s){
+		if (d == 0){
+		    hepa[i]=hepa[left];
+		    hepa[left]=temp;
+		    remove(left); 
+		} else if (d == 1){
+		    hepa[i]=hepa[right];
+		    hepa[right]=temp;
+		    remove(right);
+		}
 	    }
 	}
-	return ret;
+	return 0;
     }
 
     public void add(int value){
@@ -90,6 +105,10 @@ public class MyHeap{
 	    return hepa[1];
 	}
 	throw new NoSuchElementException();
+    }
+
+    public static void main(String[] args){
+	MyHeap hehe = new MyHeap();
     }
 
 }
