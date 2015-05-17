@@ -22,11 +22,20 @@ public class RunningMedian{
 
     public void add(int value){
 	if (value>getMedian()){
-
+	    min.add(value);
 	} else if (value<getMedian()){
-
+	    max.add(value);
 	} else{
-
+	    if (min.size()>max.size()){
+		max.add(value);
+	    } else{
+		min.add(value);
+	    }
+	}
+	if (min.size()-max.size()>1){
+	    max.add(min.remove());
+	} else if (max.size()-min.size()>1){
+	    min.add(max.remove());
 	}
     }
 
@@ -36,6 +45,15 @@ public class RunningMedian{
 
     public static void main(String[] args){
 	RunningMedian saigon = new RunningMedian();
+	saigon.add(10);
+	System.out.println(saigon.getMedian());
+	System.out.println(saigon);
+	saigon.add(5);
+	System.out.println(saigon.getMedian());
+	System.out.println(saigon);
+	saigon.add(3);
+	System.out.println(saigon.getMedian());	
+	System.out.println(saigon);
     }
 
 }
